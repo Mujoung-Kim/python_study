@@ -1,4 +1,4 @@
-# 변수(Variable)
+# 변수(Variable)<br>
 
 ## 변수선언 및 초기화
 - 변수명 = 값
@@ -49,9 +49,9 @@
   - `bool(value)` : value를 논리형으로 변환<br>
 
 ## input()
-  - `input(value)` : 사용자로부터 문자열을 입력받아서 반환해주는 함수 value로 label을 지정<br><br>
+  - `input(label)` : 사용자로부터 문자열을 입력받아서 반환해주는 함수 label로 힌트 설정가능<br><br>
 
-# 자료구조
+# 자료구조<br>
 
 ## 자료구조란
   - 여러 개의 값들을 모아서 관리하는 데이터 타입
@@ -183,4 +183,82 @@
   - `tuple(data_structure)` : data_structure를 tuple로 변환
   - `set(data_structure)` : data_structure를 set로 변환
   - dictionary로 변환하는 함수는 없다.
-  - 변환할 대상 data_structure가 dictionary일 경우 key 값들만 모아서 변환
+  - 변환할 대상 data_structure가 dictionary일 경우 key 값들만 모아서 변환<br><br>
+
+# 제어문(Control Statement)<br>
+
+## 조건문(분기문)
+  - 프로그램이 명령문들을 실행하는 도중 특정 순서에서 흐름이 나뉘져야하는 경우 사용한다.
+  - if문
+    - 들여쓰기(tab)을 통해 조건문을 구분
+    - 구문
+      - ```python
+          if    a == 0:
+                b = 10 / a
+                print(b)
+          print('end')
+        ``` 
+  - if else문
+    - 구문
+      - ```python
+          if    a == 0:
+                b = 10 / a
+                print(b)
+          else  :
+                print('end')
+        ```
+<br>
+
+## 반복문
+   - 특정 조건이 True인 동안 명령문을 반복해서 실행한다.
+   - 구문
+     - ```python
+        while    value > 5:
+            value += 1
+            print(f'value: {value}')
+        ```
+   - Iterable한 객체가 값이 없을 때까지 반복 조회한다.
+   - Iterable한 객체란?
+     - 반복가능한 객체를 말한다.
+     - `for in`을 이용해 원소들을 조회할 수 있는 객체
+     - `for`은 iterable 타입의 객체가 가지고 있는 값들을 순회하며 조회할 때 사용
+     - 구문
+       - ```python
+            for element in data_structure:
+                print(f'{element}')
+            ```     
+     - `for element in data_structure`문 관련 함수
+       - `range(start_value, end_value, step)` : 특정 정수 범위내에서 특정 값만큼 증가하는 값들을 제공하는 함수
+          1. value 1개 : end_value. 0 ~ end_value-1까지 1씩 증가하는 정수를 제공
+          2. value 2개 : start_value, end_value. start_value ~ end_value-1까지 1씩 증가하는 정수 제공
+          3. value 3개 : start_value, end_value, step. start_value ~ end_value-1까지 step만큼 증가하는 정수 제공
+       - `enumerate(data_structure, start_value)` : 현재 몇 번째 값을 제공하는지, 원소를 tuple로 묶어서 제공하는 함수
+         1. data_structure : 값을 제공할 객체
+         2. start_value : 몇 번째 값을 제공하는지의 시작점 ( default = 0 )
+       - `zip(data_structure, data_structure, ...)` : 각 data_structure에서 같은 index의 값들을 묶어서 반환하는 함수
+         1. data_structure : 2개 이상 값으로 넣어야 된다.
+     - 자료구조, 문자열이 대표적인 Iterable이다.<br><br>
+
+##  continue, break
+ - 반복문 안에서 사용하는 반복문을 제어하는 구문
+ - continue
+   - 다음 반복을 실행해라.
+   - 뒤에 있는 명령은 실행하지 않는다.
+ - break
+   - 반복을 멈춰라.
+
+## 컴프리헨션(Comprehension)
+ - 기존 data_structure가 가진 element들을 이용해 새로운 data_structure를 만드는 구문
+   - 주로 기존 date_structure의 element들을 처리한 결과를 새로운 data_structure에 넣을 때 사용한다.
+   - 결과를 넣을 새로운 data_structure에 따라 다음 세가지가 있다.
+     - list comprehension
+     - dictionary comprehension
+     - set comprehension
+   - tuple comprehension은 없다.
+   - dictionary, set comprehension은 python 3.0부터 지원
+ - 구문
+   - ```python
+        [ elem for elem in list ]
+        { key : value for key, value in dictionary }
+        { elem for elem in set }
+        ```
