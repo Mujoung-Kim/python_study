@@ -51,7 +51,7 @@
 ## input()
   - `input(label)` : 사용자로부터 문자열을 입력받아서 반환해주는 함수 label로 힌트 설정가능<br><br>
 
-# 자료구조<br>
+# 자료구조(Data Structure)<br>
 
 ## 자료구조란
   - 여러 개의 값들을 모아서 관리하는 데이터 타입
@@ -262,3 +262,131 @@
         { key : value for key, value in dictionary }
         { elem for elem in set }
         ```
+<br>
+
+# 함수(Function)<br>
+
+## 함수란?
+ - 하나의 작업, 기능, 동작을 처리하기 위한 명령문들의 묶음으로 사용자 정의 연산자라고 할 수 있다.
+ - 처리하는 기능을 의미한다.
+   - 만들어진 함수는 동일한 작업이 필요할 때 마다 재사용될 수 있다.
+   - 함수를 만드는 것을 함수 정의라고 한다.
+   - 정의된 함수를 사용하는 것을 함수 호출이라고 한다.
+   - python에서 함수는 일급 시민 객체(First Class Citizen Object)이다.
+     - 일급 시민 객체 : 변수에 할당할 수 있고, 인수로 전달할 수 있고, 반환 값으로 반환할 수 있는 객체를 말한다.
+   - 매개변수(parameter), 전달인자(argument), 반환값(return value)<br><br>
+
+## 함수구문
+ - 함수의 정의
+   - 새로운 함수를 만드는것을 함수의 정의라고 한다.
+   - 함수의 선언부와 구현부로 나누어진다.
+     - 선언부(Header) : 함수의 이름과 인수를 받을 변수(parameter)를 지정한다
+     - 구현부(Body) : 함수가 호출 되었을 때 실행할 실행문들을 순서대로 작성한다.
+     - ```python
+        def fuction_name([parameter, parameter2, argument, ...]):  # Header
+          pass                                                     # Body
+          return result_value
+        ```
+     - 함수 선언 마지막에는 :을 넣어 구현부와 구분한다.
+     - 매개변수(parameter)는 인수를 받기 위한 변수로 0개 이상 선언할 수 있다.
+     - 함수의 실행구문은 반드시 공백 4개 or 탭 이후에 작성한다.
+     - 결과값이 있을 경우 `return`을 넣고 없을 경우 `return`은 생략할 수 있다.
+       - `return`이 없는 함수는 `None`을 반환한다.
+     - 함수 이름 관례
+       - 모두 소문자로 작성하고 단어와 단어가 합쳐지 경우 `_`로 구분한다.<br><br>
+
+### argument 전달 방법
+ - argument : 함수/메소드를 호출할 때 parameter에 전달해 주는 값.
+ - positional argument : 선언된 parameter 순서에 맞춰서 값을 전달.
+   - ```python
+        def fuction_name(parameter, parameter2, parameter3, parameter4):
+          print(parameter, parameter2, parameter3, parameter4, sep=' - ')
+        ```
+ - keyword argument : parameter_name = argument_value -> 어떤 parameter에 어떤 argument_value를 전달할 지 지정.
+   - ```python
+        def fuction_name(para, para2, para3)
+          print(para, para2, para3, sep=' - ')
+        function_name(para = 10, para2 = 20, para3 = 30)
+        ```
+    - 순서대로 전달할 필요가 없다.<br><br>
+
+### 함수 정의 시 매개변수(parameter) 선언 방법
+ - 기본값(default_value)이 있는 매개변수(parameter)
+   - 매개변수(parameter) 선언 시 기본값(default_value)을 대입
+   - ```python
+        def fun(name = None, age = 0):
+          pass 
+        ```
+     - 호출시 값이 전달되지 않으면 함수는 기본값을 사용하고 전달되면 전달된 값을 사용한다.
+ - 매개변수 선언 순서
+   - 기본값이 없는 매개변수들을 먼저 선언해야한다.
+   - ```python
+          def fun(name, age, address = None, tel = None): # 가능
+          def fun(name = None, age = 0, address, tel):    # 불가능
+          def fun(name, age = 0, address = None, tel):    # 불가능
+        ```
+        <br>
+
+## 가변인자(Var args)
+ - 인수의 개수를 정하지 않고 받을 경우 사용한다.
+ - 매개변수 앞에 `*`를 붙인다.
+   - 가변인자는 tuple로 처리된다.
+   - 호출헐 때는 값들을 0 ~ n개 나열하면 된다.
+   - 관례적으로 변수명은 `*args`로 준다
+ - 매개변수 앞에 `**`를 붙인다.
+   - 가변인자는 dictionary로 처리된다.
+   - keyword argument형식으로 인수를 전달한다.
+   - 관례적으로 변수명은 `**kwargs`로 준다.
+ - 일반변수와 같이 선언할 경우 가변인자는 마지막에 선언해야 한다.
+ - `*`와 `**`는 각각 하나씩만 선언할 수 있다.<br><br>
+
+# 전역변수(Global Variable)와 지역변수(Local Variable)
+ - 전역변수
+   - 함수밖에 선언된 변수
+   - 모든 함수들이 공통적으로 사용할 수 있다.
+ - 지역변수
+   - 함수안에 선언된 변수
+   - 선언된 그 함수 안에서만 사용할 수 있다.<br><br>
+
+# Python에서 함수는 일급시민객체(First Class Citizen Object) -> 함수는 값이다.
+  - 일급시민객체
+    1. 변수에 할당(대입)할 수 있다.
+    2. 함수 호출할 때 argument로 전달할 수 있다.
+    3. 함수의 return 값으로 사용할 수 있다.
+ - 구문
+   - ```python
+        def hello():
+          print('hello world')
+        ```
+        <br><br>
+
+# 람다식(Lambda Expression)
+ - 함수를 하나의 구문으로 만드는 표현식
+ - 일회성 함수를 만들 때 사용 -> 함수를 다른 함수 호출할 때 argument로 전달하는 경우
+ - 구문
+   - ```python
+        lambda [parameter1, ...] : operation
+        ```
+   - 명령문은 하나의 명령문만 가능
+   - 명령문이 처리한 결과는 자동으로 return된다.
+   - 문법적으로 매개변수를 생략할 수 있지만 안받을 경우 그냥 결과를 입력한다.<br><br>
+
+# Docstring
+ - function, class, method에 대한 설명
+ - 구현부 맨 처음에 달아준다. `"""..."""`을 이용해 설명을 작성
+   - 구문
+   - ```python
+          def function(parameter, parameter):
+            """
+            함수에 대한 설명
+            [parameter]
+              변수1 : 타입 - 설명
+              변수2 : 타입 - 설명
+            [return]
+              타입 - 설명
+            [exception]         # 함수가 실행되다 발상핼 가능성이 있는 오류
+              타입 - 설명
+            """
+            pass
+        ```
+        <br>
