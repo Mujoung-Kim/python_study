@@ -25,7 +25,7 @@ num = int(input('enter_multiplelication: '))
 # 			print(f'{i} * {j} = {i * j}', end='\t')
 
 # 함수화
-# 예외처리 필요
+# TODO exception 정의
 # 음수일 경우 양수를 다시 입력
 # 문자열이 입력되면 다시 입력
 def multiplelication(num):
@@ -42,8 +42,11 @@ def multiplelication(num):
 					print(f'{i} * {j} = {i * j}')
 					break
 				print(f'{i} * {j} = {i * j}', end='\t')
-	elif num < 0:
-		print('양수를 입력해주세요.')
+	# elif num == -1:
+	# 	for i in range(1, 10):
+	# 		if	i == 9:
+	# 			print(f'{num} * {i} = {num * i}')
+	# 			break
 	else:
 		for i in range(1, num + 1):
 			for j in range(1, 10):
@@ -52,4 +55,31 @@ def multiplelication(num):
 					break
 				print(f'{i} * {j} = {i * j}', end='\t')
 
-multiplelication(num)
+# multiplelication(num)
+
+# module화
+class MultiplelicationTable():
+	def __init__(self, num) -> None:
+		self.num = num
+
+	def show_table(self):
+		if	self.num == 1:
+			for idx in range(1, 10):
+				print(f'{self.num} * {idx} = {self.num * idx}')
+		elif self.num >= 9:
+			for	idx in range(1, self.num + 1):
+				for i in range(1, self.num + 1):
+					if	i == self.num:
+						print(f'{idx} * {i} = {idx * i}')
+						break
+					print(f'{idx} * {i} = {idx * i}', end='\t')
+		else:
+			for i in range(1, self.num + 1):
+				for j in range(1, 10):
+					if	j == 9:
+						print(f'{i} * {j} = {i * j}')
+						break
+					print(f'{i} * {j} = {i * j}', end='\t')
+
+test = MultiplelicationTable(num)
+test.show_table()

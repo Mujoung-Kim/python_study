@@ -384,9 +384,130 @@
               변수2 : 타입 - 설명
             [return]
               타입 - 설명
-            [exception]         # 함수가 실행되다 발상핼 가능성이 있는 오류
+            [exception]         # 함수가 실행되다 발생할 가능성이 있는 오류
               타입 - 설명
             """
             pass
         ```
         <br>
+
+# 객체지향프로그래밍(Object-Oriented Programming)
+ - 객체(object)
+   - 연관성 있는 값들과 함수들을 묶어서 가지고 있는 값
+     - 하나의 데이터가 여러 개의 값으로 구성되있고, 그 값들과 관련된 기능이 필요할 때 이것들을 묶어서 구성한 것이 객체이다.
+   - 속성(attribute) == state
+     - 객체를 구성하는 값으로 객체의 속성, 상태이다.
+   - Instance 메소드(method) == operator, behavior
+     - 객체가 제공하는 기능으로 객체의 속성을 처리하는 기능을 제공한다.
+     - 값을 처리하는 연산자라고 할 수 있다.
+   - 클래스(class)
+     - 객체가 가지는 속성과 메소드를 정의한 객체의 설계도
+     - 사용자 정의 데이터타입
+     - 클래스로부터 객체를 생성해 사용한다.
+     - ```python
+          class ClassName:                           # instance 생성
+            def _init_(attribute, attribute, ...):   # attribute 선언
+              self.attribute = attribute
+              self.attribute = attribute
+
+            def function():                          # instance method 선언
+              pass
+          ```
+     - class 이름 관례 -> 파스칼 표기법 : 각 단어의 첫글자는 대문자 나머진 소문자로 정의
+     - class를 구현(정의)하고, 그 클래스로부터 객체를 생성해서 사용합니다.
+     - instance화(instantiate)
+       - 객체를 생성하는 작업
+       - 구문
+         - ```python
+                variable = ClassName()            # 객체 생성 -> ClassName 생성된 객체를 변수에 넣어서 사용
+              ```
+         - 
+     - instance
+       - 클래스로부터 생성된 객체<br><br>
+
+## instance에 속성을 정의
+ - 속성(attribute)
+   - 객체의 data, 상태(state)<br><br>
+
+### instance에 속성을 추가/조회
+  - 추가
+    1. Initializer를 이용해서 추가
+    2. `instance.attribute_name = value` : 추가/변경
+       > 주로 변경 시에 사용
+    3. method를 이용해서 추가/변경
+       > 주로 변경 시에 사용
+  - 조회
+    - 사용할 곳에서 `instance.attribute_name`<br><br>
+
+### 생성자(Initializer)
+ - class에서 객체 생성할 때 호출되는 특수 method
+   - 객체 생성시에만 호출 할 수 있다.
+ - 주로 attribute의 값을 초기화 하는 역할을 한다.
+   > variable 초기화 : 변수를 처음 만들어서 첫 번째 값을 대입
+ - 구문
+   - ```python
+          class ClassName:
+            def __init__(self, param, param2):
+              # 구현부
+              self.attribute_name = param
+              self.attribute_name2 = param2
+        ```
+   - self 변수
+     - method의 첫 번째 parameter로 선언.
+       > method는 반드시 한 개이상의 parameter를 선언해야 하고, 그 첫 번째 parameter를 의미
+     - 그 method를 가지는 객체를 받는다
+       - initalizer : 생성한 객체
+       - method : method를 호출할 때 사용한 객체<br><br>
+
+### instance 메소드(method)
+  - instance가 제공하는 기능
+    - instance의 attribute 값들을 처리하는 역할
+  - 구문
+    - ```python
+          class ClassName:
+            def method_name(self):
+              # attribute 값을 사용할 경우 self 변수를 이용
+              pass
+        ```
+    - 반드시 하나 이상의 parameter를 선언해야한다.
+  - 호출
+    - `instance.method_name(arg, arg, ...)`<br><br>
+
+## 정보 은닉(Information hiding)
+ - attribute의 값을 외부에서 마음대로 바꾸지 못하도록 하는 방법
+   - attribute에 값을 직접 대입하는 것을 막는다.
+   - 직접 대입할 경우 그 attibute가 가질 수 없는 값이 대입되는 것을 막을 수 없다.
+   > 대신 method를 통해 값을 변경하도록 한다.
+     - setter method : attribute_variable을 변경하는 method
+     - getter method : attribute_variable을 조회(반환)하는 method
+ - 구현방법
+   - attribute_name을 `__`로 시작한다. (단 `__`로 끝나면 안됨)
+   - attribute_variable을 변경/조회하는 두 개의 method를 제공한다.
+     - setter는 관례상 `set`으로 getter는 관례상 `get`로 시작한다.<br><br>
+
+## 상속
+ - 기존 클랫를 확장하여 instance 변수나 method를 추가하는 방식
+   - 기반(base)class, 상위(super)class, 부모(parent)class
+     - 물려주는 class, 좀 더 추상적
+   - 파생(derived)class, 하위(sub)class, 자식(child)class
+     - 상속하는 class 좀 더 구체적
+   - 상위 class와 하위 class는 계층 관계를 이룬다.
+   - python은 다중상속을 지원한다.
+     - 하나의 class가 여러 class로부터 상속할 수 있다.
+   - 구문
+     - ```python
+            class ClassName(SuperClassName[SuperClassName], ...):
+              pass
+          ```
+          <br><br>
+
+## Method overriding
+ - method 재정의
+   - 상위class에 정의된 method 구현을 하위class에서 재정의 하는 것
+   - 상위class의 추상적인 구현을 하위class에서 그 class에 맞게 구체적으로 구현하는 방법<br><br>
+
+## 상속과 attribute
+ - `super()` : 상위 class의 객체를 반환
+   - 하위 class에서 상위 class에 선언된 method는 attribute을 호출할 때 사용
+      > 반드시 사용해야하는 경우 : 하위 class에서 method overriding한 method가 상위 class의 원본 method를 호출 해야할 경우
+   - ㅁㄴㅇㄹ
