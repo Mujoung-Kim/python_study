@@ -494,6 +494,7 @@
    - 상위 class와 하위 class는 계층 관계를 이룬다.
    - python은 다중상속을 지원한다.
      - 하나의 class가 여러 class로부터 상속할 수 있다.
+     - 하나의 class가 여러 class의 기능을 가져와서 사용할 때 이용
    - 구문
      - ```python
             class ClassName(SuperClassName[SuperClassName], ...):
@@ -510,4 +511,110 @@
  - `super()` : 상위 class의 객체를 반환
    - 하위 class에서 상위 class에 선언된 method는 attribute을 호출할 때 사용
       > 반드시 사용해야하는 경우 : 하위 class에서 method overriding한 method가 상위 class의 원본 method를 호출 해야할 경우
-   - ㅁㄴㅇㄹ
+ - 같은 기반의 instance method를 호출할 때
+   - `self.method()`를 이용<br><br>
+
+### 다중 상속
+ - 다중 상속
+   - 하나의 class가 여러 class로부터 상속하는 것.
+   - 구문
+     - ```python
+            class SuperClase:
+                pass
+
+            class SuperClass2:
+                pass
+
+            # SuperClass와 SuperClass2를 동시에 상속
+            class SubClass(SuperClass, SuperClass2, [...]):
+                pass
+        ```
+   - MRO(Method Resolution Order) -> method 호출 순서
+     1. 자기 자신 것을 호출
+     2. 상위 class것을 호출
+       - 다중 상속의 경우 먼저 선언된 class부터 찾아서 호출<br><br>
+
+# 객체 관련 특수 메소드/변수
+ - `isinstance(object, class_name), isinstance(object, (class_name1, class_name2, ...))` : return type(bool)
+   - 객체가 두 번째 parameter로 지정한 class의 타입이면 True, 아니면 False 반환
+ - `object.__dict__` : 객체가 가지고 있는 instance 변수들과 대입된 값을 dictionary에 넣어 반환
+ - `object.__class__` : 객체의 타입을 반환<br><br>
+
+## 특수 메소드(Special Method) = 매직 메소드(Magic Method), 던더(DUNDER)
+ - 특수 메소드란?
+   - class에 정의하는 약속된 method로 객체가 특정한 상황에서 사용될 때 자동으로 호출되는 method들이다
+   - method_name에 `__`으로 시작하고 끝난다.
+     - `__init__()`
+   - 제공되는 던더 method
+     - https://docs.python.org/ko/3/reference/datamodel.html#special-method-names
+   - 주요 special method
+     - `__init__(self, [param, ...])`
+       - initalizer
+       - self는 새롭게 생성되는 instance가 전달된다.
+       - 객체 생성시 가져야하는 default instance 변수를 정의할 때 사용
+     - `__call__(self, [param, ...])` 
+       - 객체를 함수처럼 호출할 때 실행되는 method
+     - `__repr__(self)` : 객체에 대한 표현식을 문자열로 만들어준다.
+       - instance를 문자열로 바꿀 때 사용할 문자열 값을 만들어 반환한다.
+       - 내장 함수 `repr()` 객체를 전달하면 호출된다.
+       - 대화형 IDE에서 변수를 값을 출력할 때도 호출된다.
+       - 반환된 문자열을 `eval()`에 넣어 동일한 attribute를 가진 객체를 생성할 수 있도록 정의한다.
+     - `__str__(self)` : 객체의 값을 문자열로 만들어준다.
+       - `__repr()__`과 비슷하게 instance를 문자열로 바꿀 때 사용할 문자열 값을 반환한다.
+         - 내장 함수 `str(object)`나 `print()`함수에 의해 호출된다.
+         - 출력 시 객체에 `__str__()`이 없으면 `__repr__()`이 호출된다.
+       - 주로 instance의 attribute값들을 하나의 문자열로 합쳐 반환하도록 구현한다.
+     - 비교 연산자
+       - `__eq__(self, other)` : self == other
+       - `__lt__(self, other)` : self < other
+       - `__gt__(self, other)` : self > other
+       - `__le__(self, other)` : self <= other
+       - `__ge__(self, other)` : self >= other
+       - `__ne__(self, other)` : self != other
+     - 산술 연산자
+       - `__add__(self, other)` : self + other
+       - `__sub__(self, other)` : self - other
+       - `__mul__(self, other)` : self * other
+       - `__truediv__(self, other)` : self / other
+       - `__floordiv__(self, other)` : self // other
+       - `__mod__(self, other)` : self % other <br><br>
+
+# Class Variable/Class Method, 정적 메소드(Static method)
+ - 객체가 아닌 class자체의 method, variable
+   - 객체 별로 생성되는 것이 아니라 class에 속하게 된다.
+   - class method는 class variable와 관련된 기능을 제공하는 method를 만들 때 사용
+ - class variable 선언
+   - ```python
+        class ClassName:
+            class_variable = None
+        ```
+   - class block에 선언한 변수로 `class_name.variable`로 호출
+ - class method 선언
+   - ```python
+        class ClassName:
+            class_variable = None
+
+            @classmethod
+            def add_variable(cls, parameter):
+                cls.class_variable = parameter
+        ```
+   - method 선언부에 `@classmethod`를 붙인다
+   - 반드시 한 개의 parameter를 선언해야 한다.
+     > 첫 번째 parameter로 class 자신을 받는 variable를 선언해 다른 class 멤버들을 호출할 수 있다.
+   - class variable/method 호출
+     - className을 이용해 호출
+     - 객체를 이용해서 호출
+ - 정적 메소드(static method)
+   - class에 선언된 method로 객체와 상관없이 class의 기능을 제공
+     - 객체와 상관없는 class만의 기능을 제공하는 method를 만들 때 사용
+   - 구현
+     - ```python
+            class ClassName:
+                @staticmethod
+                def static_method(param, param):
+                    pass
+        ```
+     - class method와 다르게 class를 받는 parameter를 선언하지 않는다.
+       - class_variable에 직접 접근하지 못한다.
+   - 호출
+     - `className.method_name()`으로 호출<br><br>
