@@ -615,6 +615,38 @@
                     pass
         ```
      - class method와 다르게 class를 받는 parameter를 선언하지 않는다.
-       - class_variable에 직접 접근하지 못한다.
+       > class_variable에 직접 접근하지 못한다.
    - 호출
      - `className.method_name()`으로 호출<br><br>
+
+# 모듈(Module)과 패키지(Package)
+ - 모듈이란?
+   - 독립적인 기능을 가지고 재사용 가능한 프로그램 단위를 모듈이라한다.
+   - python에서 module은 재사용 가능한 function/class/variable등을 작성한 소스파일을 말한다.
+     - .py로 저장한 하나의 파일이 하나의 모듈이 된다.
+     - 소스파일에 저장된 function/class들을 다른 python 프로그램에서 사용할 수 있다.
+     - module은 라이브러리로 볼 수 있다.
+   - 종류
+     - 표준 모듈(Standard Module) -> 1st party
+       > python에 내장된 module
+     - 3rd party module
+       > 특정 개발업체나 개발자들이 만들어 배포하는 module
+     - 사용자 작성 module -> 2nd party
+       > 개발자가 재사용을 위해 직접 만든 module
+ - import
+   - 내장함수 이외의 module을 사용하기 위해서 module의 내용을 `import`구문을 이용해 loading해야한다.
+     - 사용하려는 module의 내용(class, function, variable)를 메모리에 올리는 작업
+     - module내의 class/function/variable를 사용하기 위해서는 반드시 import를 해야한다.
+     - 구문은 module을 사용하기 전에만 하면 된다.
+   - 구문
+     - ```python
+        import module_name as byname
+        from path import module_name as byname
+        ```
+     - `import` 다음에 module/function/class가 올 수 있다.
+     - `from`절의 경로가 계층관계일 때 구분자로 `.`을 사용한다.
+     - 사용하려는 것이 있는 경로의 의미
+       > function일 경우 해당 function가 정의된 module path(`package.module`)
+       <br>
+       > module일 경우 해당 module의 package path
+     - 
