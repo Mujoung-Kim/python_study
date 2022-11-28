@@ -247,3 +247,228 @@ plus = Plus(10, 20)
 print(plus.calcuate())
 minus = Minus(10, 20)
 print(minus.calcuate())
+
+# 다중 상속
+class Printer:
+    def print(self):
+        print('printed.')
+
+    def test(self):
+        print('printer function test.')
+
+class Saver:
+    def save(self):
+        print('saved.')
+
+    def test(self):
+        print('save function test.')
+
+class WordProcessor(Printer, Saver):        # 두 개의 class를 상속함 -> 다중상속
+    def write(self):
+        print('writed.')
+
+    def test(self):
+        print('wordprocessor function test.')
+        super().test()
+
+wp = WordProcessor()
+wp.write()
+wp.save()
+wp.print()
+wp.test()
+print(WordProcessor.mro())                  # ClassName.mro() -> method 호출 순서를 출력.
+# object -> python 모든 type(class)의 최상위 class
+
+# 객체 관련 특수 method/variable
+type(30) == int, type(5.2) == str
+isinstance(30, int), isinstance('30', int)
+# isinstance(30, float) or isinstance(30, int)
+isinstance(30, (float, int))
+
+def Test(var):
+    # if type(var) == int
+    if isinstance(var, (int, float)):
+        return var + 20
+    else:
+        print('type error.')
+
+# class : data_type, instance : value
+# 상속 -> 상위 class는 하위 class의 타입이 된다.
+print(isinstance(wp, WordProcessor))
+print(isinstance(wp, Printer))
+print(isinstance(wp, Saver))
+
+p = Printer()
+# 부모object, 자식class
+print(isinstance(p, WordProcessor))
+
+print(wp.__dict__)
+wp.title = 'english'
+wp.text = 'hello'
+print(wp.__dict__)
+print(wp.__class__)
+
+# special method
+class Plus1:
+
+    def __init__(self, num1, num2):
+        self.num1 = num1
+        self.num2 = num2
+
+    def __call__(self):
+        # parameter와 return 값은 원하는 대로 구현가능
+        return self.num1 + self.num2
+
+plus = Plus1(10, 20)
+plus()                      # object를 function처럼 호출 -> plus() == __call__() method를 호출
+
+# __str__(), __repr__() 차이 : 값을 문자열로 출력 or 표현식을 문자열로 출력하냐의 차이
+s = 'hello'
+t1 = str(s)
+t2 = repr(s)
+print(t1, t2)
+
+class Item:
+    def __init__(self, name, maker, price):
+        self.name = name
+        self.maker = maker
+        self.price = price
+
+    def __str__(self):
+        # class로부터 생성된 객체를 문자열 값으로 반환 
+        # -> 어떤 attribute값들로 구성되었는지 문자열로 표현
+        return f'Item_name: {self.name}, Item_maker: {self.maker}, Item_price: {self.price}'
+
+    def __repr__(self):
+        # 객체값 자체의 표현식을 문자열로 반환
+        #  -> 객체 생성하는 코드를 문자열로 반환
+        # 보통 필요가 없어서 생략하는 경우가 많다.
+        return f"Item('{self.name}', '{self.maker}', '{self.price}')"
+    
+    # 연산자 overriding
+    # 산술연산자 overriding
+    def __add__(self, other):
+        # + overriding object + value -> self: object, other: value
+        # price를 other와 더하도록 구현
+        # item_object + 300 -> self.price + 300
+        # other: 정수 - self.price와 other를 더한다
+        # other: Item - self.price와 other.price를 더한다
+        if isinstance(other, int):
+            return self.price + other
+        elif isinstance(other, Item):
+            return self.price + other.price
+        else :
+            raise TypeError('계산할 수 없는 타입입니다.')
+
+    # 뺄셈
+    def __sub__(self, other):
+        if isinstance(other, int):
+            return self.price - other
+        elif isinstance(other, Item):
+            return self.price - other.price
+        else:
+            raise TypeError('계산할 수 없는 타입입니다.')
+
+    # 곱셈
+    def __mul__(self, other):
+        if isinstance(other, int):
+            return self.price * other
+        elif isinstance(other, Item):
+            return self.price * other.price
+        else:
+            raise TypeError('계산할 수 없는 타입입니다.')
+
+    # 나눗셈
+    def __truediv__(self, other):
+        if isinstance(other, int):
+            return self.price / other
+        elif isinstance(other, Item):
+            return self.price / other.price
+        else:
+            raise TypeError('계산할 수 없는 타입입니다.')
+
+    # 몫 나눗셈
+    def __floordiv__(self, other):
+        if isinstance(other, int):
+            return self.price // other
+        elif isinstance(other, Item):
+            return self.price // other.price
+        else:
+            raise TypeError('계산할 수 없는 타입입니다.')
+
+    # 나머지 나눗셈
+    def __mod__(self, other):
+        if isinstance(other, int):
+            return self.price % other
+        elif isinstance(other, Item):
+            return self.price % other.price
+        else:
+            raise TypeError('계산할 수 없는 타입입니다.')
+
+    # 비교연산자 overriding
+    def __eq__(self, other):
+        # item == item2 -> self(item), other(item2)
+        # 두 객체가 같은 attribute를 가졌는지를 비교하도록 overriding
+        result = False
+
+        if isinstance(other, Item):
+            if self.name == other.name and self.maker == other.maker and self.price == other.price:
+                result = True
+
+        return result
+
+    def __lt__(self, other):
+        result = False
+
+        if isinstance(other, Item):
+            if self.price < other.price:
+                result = True
+
+        return result
+
+    def __gt__(self, other):
+        # item > item2 -> self(item), other(item2)
+        # item > 30000 -> self(item), other(30000)
+        if isinstance(other, (int, float)):
+            return self.price > other
+        elif isinstance(other, Item):
+            return self.price > other.price
+        else :
+            raise TypeError('Item_object or int, float만 비교가능합니다.')
+
+item = Item('TV', 'Samsung', 2300000)
+print(str(item))            # __str__() 호출
+print(repr(item))           # __repr__() 호출
+print(item + 30000)
+item2 = Item('Notebook', 'LG', 1200000)
+print(item + item2)
+item3 = Item('Computer', 'Samsung', 1400000)
+print(item == item3)
+print(item != item3)
+print('=' * 10)
+print(item > 10000000)
+print(item > item2)
+
+# eval('python code를 문자열로 넣어줌') -> 문자열의 python code를 해석/평가해서 실행
+eval('20 + 20')
+
+# 다양한 계산식을 묶어놓은 class
+class Calculator:
+    # 원의 넓이를 계산하는 method
+    # parameter: 반지름, PI값은 class_variable로 선언
+    PI = 3.141592           # class 구현부에 선언한 변수 -> class_variable
+
+    @classmethod
+    def circle_area(cls, redius):
+        return redius * redius * cls.PI
+
+    # 너비와 높이를 받아서 사각형의 넓이를 계산하는 method
+    # 특정 instance의 변수값이나 class의 변수값이 필요없다. -> static method()
+    @staticmethod
+    def rectangle_area(width, height):
+        return width * height
+
+# class variable/method call -> class_name.variable_name, class_name.method_name()
+print(Calculator.PI)
+print(Calculator.circle_area(5))
+print(Calculator.rectangle_area(5, 4))
