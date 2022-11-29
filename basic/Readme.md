@@ -641,12 +641,108 @@
    - 구문
      - ```python
         import module_name as byname
-        from path import module_name as byname
+        from package_path import module_name as byname
         ```
-     - `import` 다음에 module/function/class가 올 수 있다.
+     - `import` 다음에 module/function/class가 올 수 있다. -> 사용하는 module/function/class
      - `from`절의 경로가 계층관계일 때 구분자로 `.`을 사용한다.
-     - 사용하려는 것이 있는 경로의 의미
-       > function일 경우 해당 function가 정의된 module path(`package.module`)
-       <br>
-       > module일 경우 해당 module의 package path
-     - 
+       - 사용하려는 것이 있는 경로( package_path )의 의미
+         > function일 경우 해당 function가 정의된 module path(`package.module`)
+         <br>
+         > module일 경우 해당 module의 package path
+ - 패키지란?
+   - module파일(.py)들을 모아놓은 디렉토리
+     - moduled의 수가 많아질 경우 역할이나 의미에 따라 디렉토리를 만들어 관리한다.
+   - `__init__.py`
+     - 디렉토리가 패키지가 되기 위해서는 `__init__.py` 파일이 그 디렉토리에 있어야한다.
+     - python 3.3부터는 없어도 패키지로 인식
+     - `__all__`속성을 이용해 외부에서 `import *`했을 때 import될 module들을 선언할 수 있다.
+       > python_path -> 환경변수로 python library가 있는 디렉토리 path
+  
+<br>
+
+# Callstack 메커니즘
+ - function간의 호출 관계에서 항상 시작한 곳으로 돌아와서 종료한다. -> exception상황에서도 적용된다.<br><br>
+
+# 예외처리(Exception)
+ - 예외란?
+   - function or method가 처리 도중 다음 명령문을 실행하지 못하는 상황
+ - 예외처리(Exception Handing)란?
+   - 발생한 exception를 해결하여 프로그램을 정상화 시키는 것
+ - 종류
+   - python문법이나 구문 규칙을 어겨서 발생하는 오류(System exception)
+     - exception handing를 통해 해결할 수 있기는 하지만 대부분의 경우 코드를 수정해야한다.
+   - 프로그램 업무 규칙상 발생하는 오류(Application exception)
+     - 프로그램이 정한 업무규칙을 어기는 상황에서 발생하는 오류
+     - 상황이 발생하면 명시적으로 exception를 발생시킨 뒤 exception handing를 통해 처리한다.
+ - 주요 exception
+   - `SyntaxError` : python문법에 어긋난 코드 작성시 발생
+   - `NameError` : 정의되지 않은 variable/function를 호출한 경우 발생
+   - `TypeError` : 잘못된 타입의 값을 전달할 경우 발생
+   - `ValueError` : value이 잘못된 경우 발생
+   - `IndexError` : 없는 index로 list/tuple 값 조회시 발생
+   - `KeyError` : 없는 key로 dictionary의 값 조회시 발생
+ - 구문
+    - ```python
+          try :
+            pass
+          except :
+            exception_handing code
+        ```
+   - 특정한 exception만 처리
+      - ```python
+          try :
+              pass
+          except exception_name:
+              exception_handing code
+          ```
+   - 여러 오류를 따로 처리
+      - ```python
+          try :
+              pass
+          except exception_name:
+              exception_handing code
+          except exception_name:
+              exception_handing code
+          except exception_name:
+              exception_handing code
+          ```
+   - `else`구문
+      - `try block`에서 exception가 발생하지 않았을 경우 실행할 코드를 작성
+      - `except`다음에 와야한다.
+      - ```python
+          try :
+              pass
+          except :
+              exception_handing code
+          else :
+              pass
+          ```
+   - `finally`구문
+      - 예외 발생 여부, 처리 여부와 관계없이 무조건 실행되는 코드
+      - `finally`는 `except`와 `else`보다 먼저 올 수 없다.
+      - ```python
+          try : 
+              pass
+          except :
+              exception_handing code
+          else :
+              pass
+          finally :
+              pass
+<br>
+
+## 예외 상속 구조
+ - python은 exception를 모두 class로 정의해 사용한다.
+   - exception가 발생하는 상황과 관련된 instance variable/method를 정의한 class
+ - python exception의 상속 구조
+   - Exception을 상속받아 구현한다.
+   - 구문
+     - ```python
+        class name_Exception(Exception):
+          pass
+        ```
+ - exception 발생
+   - ```python
+        if something_problem == True:
+          raise myError()
+      ```
