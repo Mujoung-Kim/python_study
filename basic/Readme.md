@@ -658,4 +658,91 @@
      - `__all__`속성을 이용해 외부에서 `import *`했을 때 import될 module들을 선언할 수 있다.
        > python_path -> 환경변수로 python library가 있는 디렉토리 path
   
-<br><br>
+<br>
+
+# Callstack 메커니즘
+ - function간의 호출 관계에서 항상 시작한 곳으로 돌아와서 종료한다. -> exception상황에서도 적용된다.<br><br>
+
+# 예외처리(Exception)
+ - 예외란?
+   - function or method가 처리 도중 다음 명령문을 실행하지 못하는 상황
+ - 예외처리(Exception Handing)란?
+   - 발생한 exception를 해결하여 프로그램을 정상화 시키는 것
+ - 종류
+   - python문법이나 구문 규칙을 어겨서 발생하는 오류(System exception)
+     - exception handing를 통해 해결할 수 있기는 하지만 대부분의 경우 코드를 수정해야한다.
+   - 프로그램 업무 규칙상 발생하는 오류(Application exception)
+     - 프로그램이 정한 업무규칙을 어기는 상황에서 발생하는 오류
+     - 상황이 발생하면 명시적으로 exception를 발생시킨 뒤 exception handing를 통해 처리한다.
+ - 주요 exception
+   - `SyntaxError` : python문법에 어긋난 코드 작성시 발생
+   - `NameError` : 정의되지 않은 variable/function를 호출한 경우 발생
+   - `TypeError` : 잘못된 타입의 값을 전달할 경우 발생
+   - `ValueError` : value이 잘못된 경우 발생
+   - `IndexError` : 없는 index로 list/tuple 값 조회시 발생
+   - `KeyError` : 없는 key로 dictionary의 값 조회시 발생
+ - 구문
+    - ```python
+          try :
+            pass
+          except :
+            exception_handing code
+        ```
+   - 특정한 exception만 처리
+      - ```python
+          try :
+              pass
+          except exception_name:
+              exception_handing code
+          ```
+   - 여러 오류를 따로 처리
+      - ```python
+          try :
+              pass
+          except exception_name:
+              exception_handing code
+          except exception_name:
+              exception_handing code
+          except exception_name:
+              exception_handing code
+          ```
+   - `else`구문
+      - `try block`에서 exception가 발생하지 않았을 경우 실행할 코드를 작성
+      - `except`다음에 와야한다.
+      - ```python
+          try :
+              pass
+          except :
+              exception_handing code
+          else :
+              pass
+          ```
+   - `finally`구문
+      - 예외 발생 여부, 처리 여부와 관계없이 무조건 실행되는 코드
+      - `finally`는 `except`와 `else`보다 먼저 올 수 없다.
+      - ```python
+          try : 
+              pass
+          except :
+              exception_handing code
+          else :
+              pass
+          finally :
+              pass
+<br>
+
+## 예외 상속 구조
+ - python은 exception를 모두 class로 정의해 사용한다.
+   - exception가 발생하는 상황과 관련된 instance variable/method를 정의한 class
+ - python exception의 상속 구조
+   - Exception을 상속받아 구현한다.
+   - 구문
+     - ```python
+        class name_Exception(Exception):
+          pass
+        ```
+ - exception 발생
+   - ```python
+        if something_problem == True:
+          raise myError()
+      ```
