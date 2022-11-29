@@ -641,12 +641,21 @@
    - 구문
      - ```python
         import module_name as byname
-        from path import module_name as byname
+        from package_path import module_name as byname
         ```
-     - `import` 다음에 module/function/class가 올 수 있다.
+     - `import` 다음에 module/function/class가 올 수 있다. -> 사용하는 module/function/class
      - `from`절의 경로가 계층관계일 때 구분자로 `.`을 사용한다.
-     - 사용하려는 것이 있는 경로의 의미
-       > function일 경우 해당 function가 정의된 module path(`package.module`)
-       <br>
-       > module일 경우 해당 module의 package path
-     - 
+       - 사용하려는 것이 있는 경로( package_path )의 의미
+         > function일 경우 해당 function가 정의된 module path(`package.module`)
+         <br>
+         > module일 경우 해당 module의 package path
+ - 패키지란?
+   - module파일(.py)들을 모아놓은 디렉토리
+     - moduled의 수가 많아질 경우 역할이나 의미에 따라 디렉토리를 만들어 관리한다.
+   - `__init__.py`
+     - 디렉토리가 패키지가 되기 위해서는 `__init__.py` 파일이 그 디렉토리에 있어야한다.
+     - python 3.3부터는 없어도 패키지로 인식
+     - `__all__`속성을 이용해 외부에서 `import *`했을 때 import될 module들을 선언할 수 있다.
+       > python_path -> 환경변수로 python library가 있는 디렉토리 path
+  
+<br><br>
