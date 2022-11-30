@@ -746,3 +746,69 @@
         if something_problem == True:
           raise myError()
       ```
+<br>
+
+# 파일의 경로(Path)
+ - 절대경로(Absolute path)
+   - root directory로부터 자원(file)의 위치를 표현
+     - root directory : start directory
+   - 지정하려는 자원(file)의 전체 경로를 표시하는 방식
+   - windows
+     - `C:\text\source\python\text.py`
+     - root directory : C
+     - 경로구분자 : `\`사용 -> (상위경로\하위경로)
+   - Linux/Unix/MacOS
+     - `/text/source/python/text.py`
+     - root directory : /
+     - 경로구분자 : `/`사용
+ - 상대경로(Relative path)
+   - 현재 directory로부터 찾아가는 경로를 표현
+     > ex ( `./python/text.py`, `./../text/python/text.py` )
+     - 시작 : `./` 현재 directory로부터 시작 -> `./`는 생략가능
+   - 구문
+     - `.` : 현재 directory
+     - `..` : 상위 directory
+     - `/` or `\` : 경로구분자 -> os에 따라 경로구분자 지정
+       > python에서는 경로구분자를 구분해서 쓸 필요가 없다.
+<br>
+
+## 입출력 개요
+ - 프로그램이 외부 자원과 데이터를 주고 받는 작업을 입출력이라 한다.
+   - 외부 자원은 DB, 원격저장소, 파일 등이 있고 파일일 경우 파일 IO라고 한다.
+   - 입력(input) : 프로그램이 외부 데이터를 읽는 것
+   - 출략(output) : 프로그램이 외부로 데이터를 쓰는 것
+ - 주요 method
+   - `open(file, mode='r', encoding=None)` : 파일 열기
+     - `file` : 연결할 파일의 경로
+     - `mode` : 열기 모드 -> default_value = r(읽기) & t(텍스트)
+       - mode는 조합할 수 있다.
+         > 목적, 데이터종류 조합 ex ( `rb` -> 읽기/바이너리, `rt` -> 읽기/텍스트 )
+     - `encoding` : text file의 경우 인코딩 방식 -> default = os 기본 encoding방식을 따른다.
+   - `write(str)` : 파일 쓰기(출력)
+       - `str` : 출력할 문자열
+   - `writelines(str_collection)` : 파일의 문자열 쓰기
+       - `str_collection` : list, tuple, set이 원소로 가진 문자열을 한 번에 출력
+       - 문자열 이외의 타입의 값이 있을 경우 TypeError 발생
+   - `read()` : 파일 읽기
+     - 연결된 파일의 내용을 모두 읽어드린다.
+   - `readline()` : 파일 한 줄만 읽기 -> `return str`
+     - 읽은 라인이 없으면 `None`를 반환
+   - `readlines()` : 파일 전체를 읽고, 리스트에 담아서 반환
+   - `close()` : 파일 닫기<br><br>
+
+## with문
+ - 구문
+   - ```python
+        with open(path, 'rt', encoding='utf-8') as variable_name:
+          # 입출력 작업 - variable_name
+          pass
+        ```
+   - variable에 연결된 stream객체가 대입
+   - `with`문이 종료되면 `variable_name.close()`가 자동으로 실행된다.<br><br>
+
+# pickle 모듈을 이용해서 객체 입출력
+ - 메모리에 저장된 객체(value)를 type을 유지한 상태로 file에 저장하고, 저장된 내용을 다시 type에 맞춰 메모리로 불러오는 기능을 제공하는 module
+ - 객체를 file로 저장 : 직렬화(Serialization)
+   - `pickle.dump(save_object, output_stream)` 
+ - 저장된 객체를 읽어오기 : 역직렬화(Deserialization)
+   - `pickle.load(input_stream)` 
