@@ -19,8 +19,6 @@
 # 데이터 개방이 가능한 2021년 7월부터 개방합니다.
 # (데이터 제공신청으로 인해 2022년 5월 데이터까지 개방합니다. )
 
-
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -28,10 +26,34 @@ import numpy as np
 file_name = 'SubwayCongestionInfo_20211231.csv'
 path = f'./test_file/data/SeoulMetro_{file_name}'
 
-test = pd.read_csv(path, encoding='cp949', index_col='연번')
+# TODO 호선별 역명 뽑아내고, 시간별 혼잡도 추출 후 그래프
+# 호선과 시간별로 혼잡도를 빼서 x축 : station, y축 : congestion 으로 그래프 그리기
+# 호선별 역명 추출 
+# 호선별 역명 상행/하행 구분
+# 
+# >
+metro = pd.read_csv(path, encoding='cp949', index_col='연번')
+line_station = metro.groupby('호선')['역명'].unique()
+line_time = metro.groupby(['호선', '역명'])['5시30분'].head(10)
+# print(line_time)
+# y = [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]]
+# plt.plot(line_station, y)
+# plt.show()
+# plt.figure(figsize=(8, 7))
+# plt.plot(line_station, line_time)
+# plt.show()
 
 if __name__ == '__main__' :
 	print(__name__)
+	# print(metro)
+	print(line_station)
+	print(line_time)
+	plt.figure(figsize=(15, 5))
+	plt.plot(line_station.iloc[0], line_time.head(10))
+	plt.title('1호선 역별 혼잡도', fontsize=30)
+	plt.ylabel('혼잡도')
+
+	plt.show()
 	# print(test.select_dtypes(include='float').sum())
 	# file_name = 'TrainOperationStatus_20210405.csv'
 	# print(pd.read_csv(path, encoding='cp949', index_col='연번'))
