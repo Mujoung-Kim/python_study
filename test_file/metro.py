@@ -26,36 +26,57 @@ import numpy as np
 file_name = 'SubwayCongestionInfo_20211231.csv'
 path = f'./test_file/data/SeoulMetro_{file_name}'
 
-# TODO 호선별 역명 뽑아내고, 시간별 혼잡도 추출 후 그래프
-# 호선과 시간별로 혼잡도를 빼서 x축 : station, y축 : congestion 으로 그래프 그리기
-# 호선별 역명 추출 
-# 호선별 역명 상행/하행 구분
-# 
-# >
+# TODO 호선/시간별 혼잡도 그래프 그리기 + 함수화
 metro = pd.read_csv(path, encoding='cp949', index_col='연번')
-line_station = metro.groupby('호선')['역명'].unique()
-line_time = metro.groupby(['호선', '역명'])['5시30분'].head(10)
-# print(line_time)
-# y = [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]]
-# plt.plot(line_station, y)
-# plt.show()
-# plt.figure(figsize=(8, 7))
-# plt.plot(line_station, line_time)
-# plt.show()
+
+# TODO 한 figure안에 2개로 그리는 작업 -> plot()할 때 pivot_table?
+# 1호선 정차역별 시간 때에 따른 혼잡도 (상하행)
+# one_up : 1호선 상선 / 평일
+# one_down : 1호선 하선 / 평일
+# x축 : 정차역 / y축 : 혼잡도 / value : 0530 ~ 2330 혼잡도
+line_one = metro[metro['호선'] == 1]
+one_up = line_one[(line_one['구분'] == '상선') & (line_one['조사일자'] == '평일')]
+one_up.set_index('역명', inplace=True)
+one_up.drop(columns=['호선', '역번호'], inplace=True)
+one_down = line_one[(line_one['구분'] == '하선') & (line_one['조사일자'] == '평일')]
+one_down.set_index('역명', inplace=True)
+one_down.drop(columns=['호선', '역번호'], inplace=True)
+
+# print(one_up[0])
+
+# 상행 그래프
+# fig -> (20, 10)의 도화지에 ax1을 subplot로 넣고 ax1.plot(x, y)로 그려라
+# fig = plt.figure(figsize=(20, 10))
+# plt.addsubplot(2, 1, 1)
+# ax1 = fig.add_subplot(211)
+one_up.plot(figsize=(20, 10))
+plt.title('1호선 혼잡도 상행', fontsize=30)
+plt.xlabel('정차역')
+plt.xticks(range(0, 10), labels=[n for n in one_up.index])
+plt.ylabel('혼잡도')
+plt.grid(True, linestyle=':')
+
+plt.legend(bbox_to_anchor=(1, 1.175), loc='upper left')
+
+# 하행 그래프
+# plt.subplot(2, 1, 2)
+one_down.plot(figsize=(20, 10))
+plt.title('1호선 혼잡도 하행', fontsize=30)
+plt.xlabel('정차역')
+plt.xticks(range(0, 10), labels=[n for n in one_down.index])
+plt.ylabel('혼잡도')
+plt.grid(True, linestyle=':')
+
+plt.legend(bbox_to_anchor=(1, 1.175), loc='upper left')
+
+plt.show()
 
 if __name__ == '__main__' :
 	print(__name__)
 	# print(metro)
-	print(line_station)
-	print(line_time)
-	plt.figure(figsize=(15, 5))
-	plt.plot(line_station.iloc[0], line_time.head(10))
-	plt.title('1호선 역별 혼잡도', fontsize=30)
-	plt.ylabel('혼잡도')
-
-	plt.show()
-	# print(test.select_dtypes(include='float').sum())
 	# file_name = 'TrainOperationStatus_20210405.csv'
 	# print(pd.read_csv(path, encoding='cp949', index_col='연번'))
 	# file_name = 'NumberOfElderlyPeopleInfo_20220531.csv'
 	# print(pd.read_csv(path, encoding='cp949', index_col='연번'))
+
+	# plt.show()
