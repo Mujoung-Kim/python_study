@@ -1,4 +1,5 @@
 import multiplelication_table as mt
+import friend_meet as fm
 
 # TODO Exception
 while True:
@@ -32,6 +33,9 @@ while True:
 		
 		elif select_num == 3:
 			print(f'selected {select_num}')
+
+			time = int(input('meet_time : '))
+			fm.meet_friend(time)
 		
 		elif select_num == 4:
 			print(f'selected {select_num}')
