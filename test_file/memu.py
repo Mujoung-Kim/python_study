@@ -1,13 +1,14 @@
 import multiplelication_table as mt
 import friend_meet as fm
+import file_copy_io as fc
 
 # TODO Exception
 while True:
 	print('=' * 149)
 	print('1.Infomation')
-	print('2.Study')
-	print('3.Exam')
-	print('4.Config')
+	print('2.multiplelication')
+	print('3.friend_meet')
+	print('4.file_copy & move')
 	print('5.Exit')
 	print('=' * 149)
 
@@ -38,7 +39,10 @@ while True:
 			fm.meet_friend(time)
 		
 		elif select_num == 4:
-			print(f'selected {select_num}')
+			file_name = input('file_name : ')
+			path = f'C:/Users/user/Downloads/{file_name}.jpg'
+
+			fc.file_copy(path, file_name)
 		
 		elif select_num == 5:
 			break
