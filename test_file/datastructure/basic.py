@@ -96,20 +96,133 @@
 # 출력
 # 첫째 줄에 n번째 피보나치 수를 출력한다.
 
+# val = int(input())
+# result = [0]
+
+# for i in range(1, val + 1) :
+# 	if i == 1 :
+# 		result.append(1)
+# 	else :
+# 		result.append(result[i - 1] + result[i - 2])
+
+# print(result[val])
+
+# 6. 문제
+# 피보나치 수는 0과 1로 시작한다. 0번째 피보나치 수는 0이고, 1번째 피보나치 수는 1이다. 그 다음 2번째 부터는 바로 앞 두 피보나치 수의 합이 된다.
+
+# 이를 식으로 써보면 Fn = Fn-1 + Fn-2 (n ≥ 2)가 된다.
+
+# n=17일때 까지 피보나치 수를 써보면 다음과 같다.
+
+# 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597
+
+# n이 주어졌을 때, n번째 피보나치 수를 구하는 프로그램을 작성하시오.
+
+# 입력
+# 첫째 줄에 n이 주어진다. n은 45보다 작거나 같은 자연수이다.
+
+# 출력
+# 첫째 줄에 n번째 피보나치 수를 출력한다.
+
+# val = int(input())
+# result = [0]
+
+# for i in range(1, val + 1) :
+# 	if i == 1 :
+# 		result.append(1)
+# 	else :
+# 		result.append(result[i - 1] + result[i - 2])
+
+# print(result[val])
+
+# 7. 문제
+# 피보나치 수는 0과 1로 시작한다. 0번째 피보나치 수는 0이고, 1번째 피보나치 수는 1이다. 그 다음 2번째 부터는 바로 앞 두 피보나치 수의 합이 된다.
+
+# 이를 식으로 써보면 Fn = Fn-1 + Fn-2 (n ≥ 2)가 된다.
+
+# n=17일때 까지 피보나치 수를 써보면 다음과 같다.
+
+# 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597
+
+# n이 주어졌을 때, n번째 피보나치 수를 구하는 프로그램을 작성하시오.
+
+# 입력
+# 첫째 줄에 n이 주어진다. n은 1,000,000,000,000,000,000보다 작거나 같은 자연수이다.
+
+# 출력
+# 첫째 줄에 n번째 피보나치 수를 1,000,000,007으로 나눈 나머지를 출력한다.
+
+# def fibonacci(num) :
+# 	result = [0]
+	
+# 	for i in range(1, num + 1) :
+# 		if i == 1 :
+# 			result.append(1)
+# 		else : 
+# 			result.append(result[i - 1] + result[i - 2])
+	
+# 	return result[num]
+# import sys
+
+# sys.setrecursionlimit(10**7)			# 재귀함수 호출 한도를 늘려주는 method
+
+# 행렬을 이용한 방법
+# def fibonacci(num) :
+# 	SIZE = 2
+# 	ZERO = [[1, 0], [0, 1]]				# 
+# 	BASE = [[1, 1], [1, 0]]				# 
+
+# 	# 두 행렬의 곱
+# 	def square_matrix_mul(x, y, size=SIZE) :
+# 		result = [[0 for _ in range(size)] for _ in range(size)]
+
+# 		for i in range(size) :
+# 			for j in range(size) : 
+# 				for k in range(size) :
+# 					result[i][j] += x[i][k] * y[k][j]
+		
+# 		return result
+
+# 	# 기본 행렬을 n번 곱한 행렬
+# 	def get_nth(num) :
+# 		matrix = ZERO.copy()
+# 		temp = BASE.copy()
+# 		n = 0
+
+# 		while 2 ** n <= num :
+# 			if num & (1 << n) != 0 :
+# 				matrix = square_matrix_mul(matrix, temp)
+			
+# 			n += 1
+# 			temp = square_matrix_mul(temp, temp)
+
+# 		return matrix
+# 	return get_nth(num)[1][0]
+
+# 일반항을 이용한 방법 -> runtime error & result_value도 다름
+def fibonacci(num) :
+	sqrt_5 = 5 ** (1/2)
+	result = 1 / sqrt_5 * ( ((1 + sqrt_5) / 2) ** num  - ((1 - sqrt_5) / 2) ** num )
+	
+	return int(result)
+
 val = int(input())
-result = 0
-print('r[0]', result)
+print(fibonacci(val))
+# print(fibonacci(val) % 1000000007)
 
-for i in range(1, val + 2) :
-	if i == 1 :
-		pre_result = result
-		result = 1
-	else :
-		result = pre_result + result
-		pre_result = result
-		print(f'r{i}', result)
+# 너무 큰 수가 들어왔을 때 처리속도 증가 필요 시간복잡도
 
-print(f'r[{val}]', result)
+# 8. 문제 tower of hanoi
+# 세 개의 장대가 있고 첫 번째 장대에는 반경이 서로 다른 n개의 원판이 쌓여 있다. 각 원판은 반경이 큰 순서대로 쌓여있다. 이제 수도승들이 다음 규칙에 따라 첫 번째 장대에서 세 번째 장대로 옮기려 한다.
 
-# TODO 피보나치
-# r[0] = 0, r[1] = 1, r[2] = r[0] + r[1], r[3] = r[1] + r[2]
+# 한 번에 한 개의 원판만을 다른 탑으로 옮길 수 있다.
+# 쌓아 놓은 원판은 항상 위의 것이 아래의 것보다 작아야 한다.
+# 이 작업을 수행하는데 필요한 이동 순서를 출력하는 프로그램을 작성하라. 단, 이동 횟수는 최소가 되어야 한다.
+
+# 입력
+# 첫째 줄에 첫 번째 장대에 쌓인 원판의 개수 N (1 ≤ N ≤ 20)이 주어진다.
+
+# 출력
+# 첫째 줄에 옮긴 횟수 K를 출력한다.
+
+# 두 번째 줄부터 수행 과정을 출력한다. 두 번째 줄부터 K개의 줄에 걸쳐 두 정수 A B를 빈칸을 사이에 두고 출력하는데, 이는 A번째 탑의 가장 위에 있는 원판을 B번째 탑의 가장 위로 옮긴다는 뜻이다.
