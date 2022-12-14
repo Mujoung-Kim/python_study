@@ -200,14 +200,14 @@
 # 	return get_nth(num)[1][0]
 
 # 일반항을 이용한 방법 -> runtime error & result_value도 다름
-def fibonacci(num) :
-	sqrt_5 = 5 ** (1/2)
-	result = 1 / sqrt_5 * ( ((1 + sqrt_5) / 2) ** num  - ((1 - sqrt_5) / 2) ** num )
+# def fibonacci(num) :
+# 	sqrt_5 = 5 ** (1/2)
+# 	result = 1 / sqrt_5 * ( ((1 + sqrt_5) / 2) ** num  - ((1 - sqrt_5) / 2) ** num )
 	
-	return int(result)
+# 	return int(result)
 
-val = int(input())
-print(fibonacci(val))
+# val = int(input())
+# print(fibonacci(val))
 # print(fibonacci(val) % 1000000007)
 
 # 너무 큰 수가 들어왔을 때 처리속도 증가 필요 시간복잡도
@@ -226,3 +226,27 @@ print(fibonacci(val))
 # 첫째 줄에 옮긴 횟수 K를 출력한다.
 
 # 두 번째 줄부터 수행 과정을 출력한다. 두 번째 줄부터 K개의 줄에 걸쳐 두 정수 A B를 빈칸을 사이에 두고 출력하는데, 이는 A번째 탑의 가장 위에 있는 원판을 B번째 탑의 가장 위로 옮긴다는 뜻이다.
+
+def hanoi(num, start, end, temp) :
+
+	if num == 1 :
+		print(start, end, sep=' ')
+	else :
+		hanoi(num - 1, start, temp, end)
+		print(start, end, sep=' ')
+		hanoi(num - 1, temp, end, start)
+
+# 횟수 세는 함수
+# def counter() :
+# 	i = 0
+	
+# 	def count() :
+# 		nonlocal i
+# 		i += 1
+
+# 		return i
+# 	return count
+
+num = int(input())
+print(2 ** num - 1)
+hanoi(num, 1, 3, 2)
