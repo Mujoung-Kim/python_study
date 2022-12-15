@@ -135,7 +135,7 @@
 
 # print(result[val])
 
-# 7. 문제
+# 7. 문제 -> 피보나치 수열 시간복잡도 줄이기
 # 피보나치 수는 0과 1로 시작한다. 0번째 피보나치 수는 0이고, 1번째 피보나치 수는 1이다. 그 다음 2번째 부터는 바로 앞 두 피보나치 수의 합이 된다.
 
 # 이를 식으로 써보면 Fn = Fn-1 + Fn-2 (n ≥ 2)가 된다.
@@ -227,14 +227,14 @@
 
 # 두 번째 줄부터 수행 과정을 출력한다. 두 번째 줄부터 K개의 줄에 걸쳐 두 정수 A B를 빈칸을 사이에 두고 출력하는데, 이는 A번째 탑의 가장 위에 있는 원판을 B번째 탑의 가장 위로 옮긴다는 뜻이다.
 
-def hanoi(num, start, end, temp) :
+# def hanoi(num, start, end, temp) :
 
-	if num == 1 :
-		print(start, end, sep=' ')
-	else :
-		hanoi(num - 1, start, temp, end)
-		print(start, end, sep=' ')
-		hanoi(num - 1, temp, end, start)
+# 	if num == 1 :
+# 		print(start, end, sep=' ')
+# 	else :
+# 		hanoi(num - 1, start, temp, end)
+# 		print(start, end, sep=' ')
+# 		hanoi(num - 1, temp, end, start)
 
 # 횟수 세는 함수
 # def counter() :
@@ -247,6 +247,59 @@ def hanoi(num, start, end, temp) :
 # 		return i
 # 	return count
 
-num = int(input())
-print(2 ** num - 1)
-hanoi(num, 1, 3, 2)
+# num = int(input())
+# print(2 ** num - 1)
+# hanoi(num, 1, 3, 2)
+
+# 9. 문제
+# 자연수 N과 정수 K가 주어졌을 때 이항 계수 
+# binom{N}{K}를 구하는 프로그램을 작성하시오.
+
+# 입력
+# 첫째 줄에 N과 K가 주어진다. (1 ≤ N ≤ 10, 0 ≤ K ≤ N)
+
+# 출력
+ 
+# binom{N}{K}를 출력한다.
+
+# def binom(n, k) :
+# 	if k == 0 or n == k :
+# 		return 1
+# 	return binom(n - 1, k) + binom(n - 1, k - 1)
+
+# n, k = map(int, input().split())
+# print(binom(n, k))
+
+# 예시 그림). 이런식으로 저장된다. >
+# 				1			
+# 			1		1
+# 		1		2		1
+# 	1		3		3		1 > 
+
+# 10. 문제 -> 이항계수 시간복잡도 줄이기
+# 자연수 N과 정수 K가 주어졌을 때 이항 계수 
+# binom{N}{K}를 10,007로 나눈 나머지를 구하는 프로그램을 작성하시오.
+
+# 입력
+# 첫째 줄에 N과 K가 주어진다. (1 ≤ N ≤ 1,000, 0 ≤ K ≤ N)
+
+# 출력
+ 
+# binom{N}{K}를 10,007로 나눈 나머지를 출력한다.
+
+def binom(n, k) :
+	temp = [[0 for _ in range(k + 1)] for _ in range(n + 1)]
+
+	for i in range(n + 1) :
+		temp[i][0] = 1
+	for i in range(k + 1) :
+		temp[i][i] = 1
+
+	for i in range(1, n + 1) :
+		for j in range(1, k + 1) :
+			temp[i][j] = temp[i - 1][j] + temp[i - 1][j - 1]
+
+	return temp[n][k]
+
+n, k = map(int, input().split())
+print(binom(n, k) % 10007)
