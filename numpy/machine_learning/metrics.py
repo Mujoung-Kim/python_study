@@ -1,8 +1,28 @@
 # %load metrics.py
 
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score, confusion_matrix, ConfusionMatrixDisplay
-from sklearn.metrics import average_precision_score, PrecisionRecallDisplay, roc_curve, roc_auc_score, RocCurveDisplay, precision_recall_curve
+from sklearn.metrics import precision_recall_curve, average_precision_score, PrecisionRecallDisplay, roc_curve, roc_auc_score, RocCurveDisplay
+from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
+
+# 회귀문제 평가함수
+def print_metrics_regression(y, pred, title=None):
+    """
+    회귀문제 평가지표를 출력하는 함수
+    MSE, RMSE, R2 세개의 평가지표를 출력
+    [parameter]
+        y: ndarray - 정답(target)
+        pred: ndarray - 모델이 추론한 결과
+        title: str - 출력할 내용의 title. 기본값: None = 출력안한다.
+    [return value]
+    [exception]
+    """
+    if title:
+        print(title)
+    mse = mean_squared_error(y, pred)
+    rmse = mean_squared_error(y, pred, squared=False)
+    r2 = r2_score(y, pred)
+    print(f'MSE: {mse}, RMSE: {rmse}, R2: {r2}')
 
 # 분류문제 평가 함수
 def print_metrics_classification(y, pred, title=None):
@@ -35,7 +55,7 @@ def plot_confusionmatrix(y, pred, title=None):
     plt.show()
 
     
-def plot_precision_recall_curve(y, pos_proba, title=None):
+def plot_precisionrecall_curve(y, pos_proba, title=None):
     """
     Precision Recall Curve 를 시각화하는 함수
     [parameter]
