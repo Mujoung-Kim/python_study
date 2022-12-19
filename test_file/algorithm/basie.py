@@ -114,15 +114,139 @@
 
 # 7. 가운데 글자 가져오기
 
-def solution(s) :
-	answer = ''
-	idx = len(s) / 2
+# def solution(s) :
+# answer = ''
+# 	idx = len(s) / 2# 	if len(s) % 2 != 0 :
+# 		answer += s[int(idx) : int(idx) + 1]
+# 	else :
+# 		answer = s[int(idx) - 1 : int(idx) + 1]
 
-	if len(s) % 2 != 0 :
-		answer += s[int(idx) : int(idx) + 1]
-	else :
-		answer = s[int(idx) - 1 : int(idx) + 1]
+# 	return answer
 
-	return answer
+# print(solution(input()))
 
-print(solution(input()))
+#  8. x만큼 간격이 있는 n개의 숫자
+
+# for
+# def solution(x, n) :
+# 	answer = []
+
+# 	for i in range(1, n + 1) :
+# 		answer.append(x * i)
+
+# 	return answer
+
+# comprehension
+# def solution(x, n) :
+# 	return [x * i for i in range(1, n + 1)]
+
+# x, n = map(int, input().split())
+# print(solution(x, n))
+
+# 9. 직사각형 별찍기
+
+# a, b = map(int, input().strip().split(' '))
+
+# 내 풀이
+# for _ in range(b) :
+# 	print('*' * a)
+
+# 다른 풀이
+# a, b = map(int, input().strip().split(' '))
+# answer = ('*' * a + '\n') * b
+# print(answer)
+
+# 10. 평균 구하기
+
+# for
+# def solution(arr) :
+# 	answer = 0
+
+# 	for i in arr :
+# 		answer += i
+
+# 	return answer / len(arr)
+
+# method 이용
+# def solution(arr) :
+# 	return sum(arr) / len(arr)
+
+# arr = [1, 2, 3, 4]
+# print(solution(arr))
+
+# 11. 행렬의 덧셈
+
+# comprehension
+# def solution(arr1, arr2) :
+# 	return [[c + d for c, d in zip(a, b)] for a, b in zip(arr1, arr2)]
+
+# numpy
+# import numpy as np
+
+# def solution(arr1, arr2) :
+# 	answer = np.matrix(arr1) + np.matrix(arr2)
+	
+# 	return answer.tolist()
+
+# arr1 = [[1, 2], [2, 3]]
+# arr2 = [[3, 4], [5, 6]]
+# print(solution(arr1, arr2))
+
+# 12. 짝수와 홀수
+
+# if
+# def solution(num) :
+# 	answer = ''
+
+# 	if num % 2 == 0 :
+# 		answer = 'Even'
+# 	else : 
+# 		answer = 'Odd'
+
+# 	return answer
+
+# one_line if
+# def solution(num) :
+# 	return 'Even' if num % 2 == 0 else 'Odd'
+
+# print(solution(int(input())))
+
+# 13. 자릿수 더하기
+
+# comprehension
+# def solution(n) :
+# 	return sum([int(val) for val in str(n)])
+	
+# comprehension + map method
+# def solution(n) :
+# 	return sum([val for val in map(int, str(n))])
+
+# print(solution(int(input())))
+
+# TODO : 14 ~ 15문제
+# 14. 최대공약수와 최소공배수
+
+# def solution(n, m) :
+# 	if n > m and n % m == 0 and m % 2 == 0 :
+# 		return [2, n]
+# 	elif n > m and n % m == 0 and m % 2 != 0 :
+# 		return [m, n]
+# 	elif n < m and m % n == 0 and n % 2 == 0 :
+# 		return [2, m]
+# 	elif n < m and m % n == 0 and n % 2 != 0 :
+# 		return [n, m]
+# 	else :
+# 		return [1, n * m]
+
+# n, m = map(int, input().split())
+# print(solution(n, m))
+
+# 15. 정수 제곱근 판별
+# import math
+
+# def solution(n) :
+# 	# return int((math.sqrt(n) + 1) ** 2) if isinstance(int, math.sqrt(n)) else -1
+# 	return round(math.sqrt(n), 2)
+# 	# return int((math.sqrt(n) + 1) ** 2) if n // n == 1 else -1
+
+# print(solution(int(input())))
