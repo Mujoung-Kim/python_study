@@ -11,7 +11,7 @@
 
 <br>
 
-## Gradient Decent
+### Gradient Decent
  - 입력값(독립변수, feature), 예측하고 싶은 값(종속변수, target, class)
  - 예시 -> 선형회귀식에서 $wx + b$에서 w = 2, b = 1로 초기화하고 비용함수가 최소화되는 w와 b를 찾는 법
    - ```python
@@ -36,7 +36,7 @@
    - 예측값(Hypothesis)라고 한다. -> $H(x)$
 <br><br>
 
-### 순간 변화율
+#### 순간 변화율
  - 순간 변화율은 '어느 쪽'이라는 방향성을 지니고 있으므로 이 방향에 맞추어 직선을 그릴 수 있다.
  - 이 선이 바로 이 점에서의 '기울기'라고 불리는 접선을 의미한다.
  - 비용(cost)을 감소하려면 w를 값을 수정하기가 어렵다.
@@ -46,7 +46,7 @@
     $$\frac{d}{dx}f(x)=\lim_{\triangle{x}\to0}\frac{f(x + \triangle{x}) - f(x)}{x}$$
 <br><br>
 
-### 예측(Hypothesis)
+#### 예측(Hypothesis)
  - hypothesis
  $$H(x)=Wx + b$$
  - W에 대한 기울기
@@ -86,7 +86,7 @@ $$
  - $\frac{\delta{E}}{\delta{W}}$ -> E와 W를 미분하였다는 기호
 <br><br>
 
-## Learning Rate와 Gradient Decent
+### Learning Rate와 Gradient Decent
  - Overshooting이 일어나지 않도록 w_gred와 b_gred에 1보다 작은 소수를 곱해서 w_gred와 b_gred의 값을 감소시킨다.
  - w_gred와 b_gred에 곱해지는 1보다 작은 소수를 learning_rate라고 한다.<br><br>
   
@@ -94,3 +94,77 @@ $$
  - 가장 많이 사용하고 있는 딥러닝 프레임워크
  - 빠른 수행속도
  - 비교적 쉬운 개발 -> 파이포치보다 쉬움
+ - 직접예측
+   - $W * X + b$
+ - 입력값을 주면 알아서 예측하는 Keras 객체
+   - `Sequential()` object
+   - 구문
+		```python
+			model = Sequential()
+
+			# Dense() -> 선형회귀
+			# output_dim : 출력 칸수, input_dim : 입력 칸수, 입력값(독립변수)
+			model.add(Dense(output_dim, input_dim=1))
+			model.summary()
+		```
+     - summary() 실행 시 
+       > Layout : 출력 형식, Output Shape : 출력 줄수, Param : W, b의 개수
+
+<br>
+
+## 인공신경망(Neural Network)
+ - 인공신경망의 다른이름 퍼셉트론(Perceptron)
+ - 다수의 신호를 입력으로 받아 하나의 신호를 출력한다.
+ - 활성함수를 통해서 데이터를 처리한다.
+<br><br>
+
+### AND연산
+ - 모두 `True`일 때, `True`를 반환
+   - `0 == False, None`
+   - `1 == True, not None`
+
+<br>
+
+### 선형회귀 cost function
+ - MSE(Mean Squared Error) = $\frac{\sum_{i = 1}^{m}(H(x) - y)^2}{데이터 수}$
+ - 인공신경망 (결과가 0 or 1)
+   - H(x) = 1, y = 1
+     - MSE = $\frac{(1-1)^2}{1}=0$
+   - H(x) = 1, y = 0
+     - MSE = $\frac{(1-0)^2}{1}=1$
+ - 수식
+$$cost=\Big\{^{-\log(H(x))  y=1}_{-\log(1-H(x))  y=0}$$
+   - $cost=-\log(H(x))$
+     - $y=1, H(x)=1$일 때
+       - cost => $-\log(H(x))=-\log(1)=0$
+     - $y=1, H(x)=0$일 때
+       - cost => $-\log(H(x))=-\log(0)=\infin$
+   - $cost=-\log(1-H(x))$
+     - $y=0, H(x)=0$일 때
+       - cost => $-\log(1-H(x))=-\log(1)=0$
+     - $y=0, H(x)=1$일 때
+       - cost => $-\log(1-H(x))=-\log(0)=\infin$
+ - Binary cross entropy
+$$C(H(x), y)=-y\log(H(x))-(1-y)\log(1-H(x))$$
+   - $y=0$
+     - $cost=-y\log(H(x))-(1-y)\log(1-H(x))=-0\log(H(x))-(1-0)\log(1-H(x))=-\log(1-H(x))$
+   - $y=1$
+     - $cost=-y\log(H(x))-(1-y)\log(1-H(x))=-1\log(H(x))-(1-1)\log(1-H(x))=-\log(H(x))$
+
+<br>
+
+### 시그모이드 함수(Sigmoid Function)
+ - 선형 회귀 결과를 0과 1로 변환해서 반환하는 함수
+ - 여기서 $e$는 자연상수이다.
+ - 계산식
+ $$ y=\frac{1}{1+e^{-(Wx+b)}} $$
+ - 구해야하는 식은 $Wx+b$에서 W와 b이다.
+ - Sigmoid 계산한 값 그래프
+![](./images/sigmoid.png)
+
+<br>
+
+### XOR 연산
+  ![](./images/xor.png)
+ - $W_1$의 기울기 $=(H(x)-y)x_1$
+ - $W_2$의 기울기 $=(H(x)-y)x_2$
