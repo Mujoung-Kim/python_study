@@ -94,3 +94,19 @@ $$
  - 가장 많이 사용하고 있는 딥러닝 프레임워크
  - 빠른 수행속도
  - 비교적 쉬운 개발 -> 파이포치보다 쉬움
+ - 직접예측
+   - $W * X + b$
+ - 입력값을 주면 알아서 예측하는 Keras 객체
+   - `Sequential()` object
+   - 구문
+		```python
+			model = Sequential()
+
+			# Dense() -> 선형회귀
+			# output_dim : 출력 칸수, input_dim : 입력 칸수, 입력값(독립변수)
+			model.add(Dense(output_dim, input_dim=1))
+			model.summary()
+		```
+     - summary() 실행 시 
+       > Layout : 출력 형식, Output Shape : 출력 줄수, Param : W, b의 개수
+
