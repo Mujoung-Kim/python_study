@@ -33,13 +33,24 @@
 
 # 18. 자연수 뒤집어 배열로 만들기
 
-def solution(n) :
-	result = []
+# method
+# def solution(n) :
+# 	temp = list(str(n))
+# 	temp.reverse()
 
-	for val in str(n) :
-		result.append(val)
-	result.sort(reverse=True)
+# 	return [int(val) for val in temp]
 
-	return list(map(int, result))
+# one_line method
+# def solution(n) :
+# 	return list(map(int, reversed(str(n))))
 
-print(solution(int(input())))
+# print(solution(int(input())))
+
+# 19. 핸드폰 번호 가리기
+
+def solution(phone_number) :
+	result = list(phone_number)[-1:-4]
+
+	return result
+
+print(solution(input()))
