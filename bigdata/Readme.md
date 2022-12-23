@@ -187,3 +187,27 @@ $$C(H(x), y)=-y\log(H(x))-(1-y)\log(1-H(x))$$
 
 ## 표준편차
  - 분산에 루트를 계산한 것
+
+<br>
+
+# 심층신경망
+ - perceptron의 한계를 극복하기 위해 나왔다.
+   - Xor연산을 실행하지 못한다.
+   - 선형분리가 불가능한 것은 풀 수 없다.
+   - Xor은 선형분리로 풀지 못하는 문제
+
+<br>
+
+## MLP(Multi Layer Perceptron)
+ - 선형회귀를 $(Wx+b)$를 한 번만 하지 말고 여러번 실행한다.
+ - 입력과 출력 사이에 층이 있다.
+ - 개별 perceptron의 결과를 다음 층의 입력으로 사용하고 결과적으로 선형분리의 제약을 극복한다.
+ - xor연산 수식
+   - $X_1, X_2$ -> 입력
+   > input layer : 입력층 <br>
+    $$Sigmoid(W_{11}X_1+W_{12}X_2+b_1)=hypothesis_1$$
+   > hidden layer : 중간 선형회귀(은닉층) <br>
+   - $hypothesis_1$을 입력 $hypothesis_1$이 1인 부분
+    $$Sigmoid(W_{21}*hypothesis_1+b_2)=hypothesis_2$$ 
+   > output layer : $hypothesis_2$ 마지막 회귀(출력층)
+   - 
