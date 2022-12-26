@@ -295,3 +295,25 @@ $$\begin{aligned}
   &=x_1*a_{10}(1-a_{10})*W_{10}*0.0099*(-0.01)\\
   &=0*0.047*5*0.0099*(-0.01)
  \end{aligned}$$
+
+ ## 다중 분류 함수(Softmax activate function)
+  - 출력값의 합이 1이 되도록하여 퍼센트를 계산
+  - $Softmax=\frac{e^{z_i}}{e^{z_1}+e^{z_2}+e^{z_3}}$
+  - $L=\begin{bmatrix}0\\1\\0\end{bmatrix}$, $y=\begin{bmatrix}0\\1\\0\end{bmatrix}$일 때
+ $$\begin{aligned}cost
+  &=L_i*-\log(y_i)\\
+  &=\begin{bmatrix}0\\1\\0\end{bmatrix}x - log\begin{pmatrix}0\\1\\0\end{pmatrix}\\
+  &=\begin{bmatrix}0\\1\\0\end{bmatrix}-\begin{bmatrix}-\infin\\0\\-\infin\end{bmatrix}\\
+  &=\begin{bmatrix}0\\1\\0\end{bmatrix}*\begin{pmatrix}\infin\\0\\\infin\end{pmatrix}\\
+  &=\begin{pmatrix}0\\0\\0\end{pmatrix}\\
+  &=0
+ \end{aligned}$$
+  - $L=\begin{bmatrix}0\\1\\0\end{bmatrix}$, $y=\begin{bmatrix}1\\0\\0\end{bmatrix}$일 때
+$$\begin{aligned}cost
+  &=L_i*-\log(y_i)\\
+  &=\begin{bmatrix}0\\1\\0\end{bmatrix}x - log\begin{pmatrix}1\\0\\0\end{pmatrix}\\
+  &=\begin{bmatrix}0\\1\\0\end{bmatrix}-\begin{bmatrix}0\\-\infin\\-\infin\end{bmatrix}\\
+  &=\begin{bmatrix}0\\1\\0\end{bmatrix}*\begin{pmatrix}0\\\infin\\\infin\end{pmatrix}\\
+  &=\begin{pmatrix}0\\\infin\\0\end{pmatrix}\\
+  &=\infin
+\end{aligned}$$
