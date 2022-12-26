@@ -50,7 +50,7 @@
  - hypothesis
  $$H(x)=Wx + b$$
  - W에 대한 기울기
-   - cost
+   - cost<br>
  $$\begin{aligned}
  cost(W, b)&=\frac{1}{2m}\sum_{i=1}^{m}(H(x_{i}) - y_{i})^2 \\
  &=\frac{1}{2m}(H(x) - y)^2 \\
@@ -188,6 +188,44 @@ $$C(H(x), y)=-y\log(H(x))-(1-y)\log(1-H(x))$$
 ## 표준편차
  - 분산에 루트를 계산한 것
 
+## 몫의 미분(분수의 미분)
+ - $\frac{1}{g(x)}$을 미분 $\bigg\{\frac{1}{g(x)}\bigg\}^\prime$
+ $$ \bigg\{\frac{1}{g(x)}\bigg\}^\prime=-\frac{g(x)^\prime}{g(x)^2} $$
+ - $\bigg\{\frac{1}{x^2}\bigg\}^\prime$
+ $$ \begin{aligned}
+g(x)&=x^2\\
+g(x)^\prime&=2x^2-1=2x^1=2x 
+ \end{aligned}$$ 
+<br>
+
+## 자연상수 e
+ - 자연상수 e의 미분
+ - $\{e^{x^2}\}^\prime=e^{x^2}(x^2)^\prime=2xe^{x^2}$
+ - $h=Wx+b$일 때 Sigmoid 미분
+ - $Sigmoid=\frac{1}{1+e^{-(Wx+b)}}=\frac{1}{1+e^{-h}}$
+   - $g(h)=1+e^{-h}$
+   - $g(h)^\prime=(1+e^{-h})^\prime=(e^{-h})^\prime=e^{-h}(-h)^\prime=-e^{-h}$
+ $$ \begin{aligned}
+ (Sigmoid)^\prime&=\bigg\{\frac{1}{1+e^{-h}}\bigg\}^\prime\\
+ &=\bigg\{\frac{1}{g(h)}\bigg\}^\prime\\
+ &=-\frac{g(h)^\prime}{g(h)^2}\\
+ &=\frac{e^{-h}}{(1+e^{-h})^2}\\
+ &=\frac{e^{-h}*1}{(1+e^{-h})(1+e^{-h})}\\
+ &=\frac{e^{-h}}{(1+e^{-h})}*\frac{1}{(1+e^{-h})}\\
+ &=\frac{1}{(1+e^{-h})}*\bigg\{\frac{e^{-h}+1-1}{(1+e^{-h})}\bigg\}\\
+ &=\frac{1}{(1+e^{-h})}*\bigg\{\frac{(1+e^{-h})-1}{(1+e^{-h})}\bigg\}\\
+ &=\frac{1}{(1+e^{-h})}*\bigg\{\frac{(1+e^{-h})}{(1+e^{-h})}*\frac{-1}{(1+e^{-h})}\bigg\}\\
+ &=\frac{1}{(1+e^{-h})}*\bigg\{1-\frac{1}{(1+e^{-h})}\bigg\}\\
+ &=Sigmoid(h)(1-Sigmoid(h))
+ \end{aligned} $$
+ - $Sigmoid(h)=0$일 때
+   - $Sigmoid(h)^\prime=0-(1-0)=0$
+ - $Sigmoid(h)=1$일 때
+   - $Sigmoid(h)^\prime=1-(1-1)=0$
+ - $Sigmoid(h)=0.5$일 때
+   - $Sigmoid(h)^\prime=0.5-(1-0.5)=0.25$
+   > 이 때가 최댓값
+
 <br>
 
 # 심층신경망
@@ -210,4 +248,50 @@ $$C(H(x), y)=-y\log(H(x))-(1-y)\log(1-H(x))$$
    - $hypothesis_1$을 입력 $hypothesis_1$이 1인 부분
     $$Sigmoid(W_{21}*hypothesis_1+b_2)=hypothesis_2$$ 
    > output layer : $hypothesis_2$ 마지막 회귀(출력층)
-   - 
+
+<br>
+
+## XOR 역전파(Backpropagation)
+ - t = 실제값, $a_{20}$ = 예측
+ - $E = (t_1-a_{20})^2$
+   > cost == E(rror)라고도 한다.
+   - $W_{10}^1$의 기울기
+     - E를 $W_{10}^1$로 미분 $=\frac{\delta{E}}{\delta{W_{10}^1}}$
+ $$\begin{aligned}
+ &=\frac{\delta{E}}{\delta{W_{10}^1}}\\
+ &=\frac{\delta{E}\delta{a_{20}}\delta{Z_{20}}}{\delta{a_{20}}\delta{Z_{20}}\delta{W_{10}}}\\
+ &=\frac{\delta{E}}{\delta{a_{20}}}*\frac{\delta{a_{20}}}{\delta{Z_{20}}}*\frac{\delta{Z_{20}}}{\delta{W_{10}^1}}
+ \end{aligned}$$
+ > chain rule : 큰 미분을 쪼개서 작은 단위로만들어 진행하는 미분법
+   - $E=\frac{1}{2}(t_1-a_{20})^2$
+   - $E^\prime=a_{20}^1=1a_{20}^{1-1}=1a_{20}^0=1*1=1$
+   - $a_{20}^2=2*a_{20}^{2-1}=2*a_{20}^1=2a_{20}$
+$$\begin{aligned}
+\frac{\delta{E}}{\delta{a_{20}}}&=\frac{\delta{\frac{1}{2}(t_1^2-2t_1a_{20}+a_{20}^2)}}{\delta{a_{20}}}\\
+&={\frac{1}{2}(-2t_1+2a_{20})}\\
+&={(-t_1+a_{20})}\\
+&=(a_{20}-t_1)
+ \end{aligned}$$
+   - $(Sigmoid)^\prime=Sigmoid(1-Sigmoid)$
+ $$\begin{aligned}
+  \frac{\delta{a_{20}}}{\delta{Z_{20}}}&=\frac{\delta{Sigmoid(Z_{20})}}{\delta{Z_{20}}}\\
+  &=Sigmoid(Z_{20})(1-Sigmoid(Z_{20}))\\
+  &=a_{20}(1-a_{20})
+ \end{aligned}$$
+   - $Z_{20}$을 $W_{10}^1$로 미분
+   - $a_{10}W_{10}^1+a_{11}W_{20}^1$
+ $$\begin{aligned}
+  \frac{\delta{Z_{20}}}{\delta{W_{10}^1}}&=\frac{\delta{(a_{10}W_{10}^1+a_{10}W_{20}^1)}}{\delta{W_{10}^1}}\\
+  &=(a_{10}*1)\\
+  &=a_{10}
+ \end{aligned}$$
+ - 전체 에러 $E_1$에 $W_{10}^0$가 기여한 정도
+ - $\frac{\delta{Z_{20}}}{\delta{a_{10}}}=\frac{\delta{(a_{10}W_{10^1}+a_{11}W_{20}^1)}}{\delta{a_{10}}}=1*W_{10}^1=W_{10}$
+ - $\frac{\delta{Sigmoid(Z_{10})}}{\delta{Z_{10}}}=Sigmoid(Z_{10})(1-sigmoid(Z_{10}))=a_{10}(1-a_{10})$
+ - $\frac{\delta{Z_{10}}}{\delta{W_{10}^0}}=\frac{\delta{(x_1W_{10}^0+x_2W_{20}^0)}}{\delta{W_{10}^0}}=x_1*1=x_1$
+ $$\begin{aligned}
+  \frac{\delta{E}}{\delta{W_{10}^0}}
+  &=\frac{\delta{Z_{10}}}{\delta{W_{10}^0}}*\frac{\delta{a_{10}}}{\delta{Z_{10}}}*\frac{\delta{Z_{20}}}{\delta{a_{10}}}*\frac{\delta{a_{20}}}{\delta{Z_{20}}}*\frac{\delta{E}}{\delta{a_{20}}}\\
+  &=x_1*a_{10}(1-a_{10})*W_{10}*0.0099*(-0.01)\\
+  &=0*0.047*5*0.0099*(-0.01)
+ \end{aligned}$$
