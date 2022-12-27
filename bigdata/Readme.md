@@ -299,21 +299,30 @@ $$\begin{aligned}
  ## 다중 분류 함수(Softmax activate function)
   - 출력값의 합이 1이 되도록하여 퍼센트를 계산
   - $Softmax=\frac{e^{z_i}}{e^{z_1}+e^{z_2}+e^{z_3}}$
-  - $L=\begin{bmatrix}0\\1\\0\end{bmatrix}$, $y=\begin{bmatrix}0\\1\\0\end{bmatrix}$일 때
- $$\begin{aligned}cost
+
+<br>
+
+### 교차 엔트로피(cross entropy)
+ - 정확하게 예측했을 경우 $cost=0$, 틀렸을 경우 $cost=\infty$
+ - $L=\begin{bmatrix}0\\1\\0\end{bmatrix}$, $y=\begin{bmatrix}0\\1\\0\end{bmatrix}$일 때
+$$
+  \begin{aligned}cost
   &=L_i*-\log(y_i)\\
   &=\begin{bmatrix}0\\1\\0\end{bmatrix}x - log\begin{pmatrix}0\\1\\0\end{pmatrix}\\
-  &=\begin{bmatrix}0\\1\\0\end{bmatrix}-\begin{bmatrix}-\infin\\0\\-\infin\end{bmatrix}\\
-  &=\begin{bmatrix}0\\1\\0\end{bmatrix}*\begin{pmatrix}\infin\\0\\\infin\end{pmatrix}\\
+  &=\begin{bmatrix}0\\1\\0\end{bmatrix}-\begin{bmatrix}-\infty\\0\\-\infty\end{bmatrix}\\
+  &=\begin{bmatrix}0\\1\\0\end{bmatrix}*\begin{pmatrix}\infty\\0\\\infty\end{pmatrix}\\
   &=\begin{pmatrix}0\\0\\0\end{pmatrix}\\
   &=0
- \end{aligned}$$
-  - $L=\begin{bmatrix}0\\1\\0\end{bmatrix}$, $y=\begin{bmatrix}1\\0\\0\end{bmatrix}$일 때
-$$\begin{aligned}cost
+  \end{aligned}
+$$
+ - $L=\begin{bmatrix}0\\1\\0\end{bmatrix}$, $y=\begin{bmatrix}1\\0\\0\end{bmatrix}$일 때
+$$
+  \begin{aligned}cost
   &=L_i*-\log(y_i)\\
   &=\begin{bmatrix}0\\1\\0\end{bmatrix}x - log\begin{pmatrix}1\\0\\0\end{pmatrix}\\
-  &=\begin{bmatrix}0\\1\\0\end{bmatrix}-\begin{bmatrix}0\\-\infin\\-\infin\end{bmatrix}\\
-  &=\begin{bmatrix}0\\1\\0\end{bmatrix}*\begin{pmatrix}0\\\infin\\\infin\end{pmatrix}\\
+  &=\begin{bmatrix}0\\1\\0\end{bmatrix}-\begin{bmatrix}0\\-\infty\\-\infty\end{bmatrix}\\
+  &=\begin{bmatrix}0\\1\\0\end{bmatrix}*\begin{pmatrix}0\\\infty\\\infty\end{pmatrix}\\
   &=\begin{pmatrix}0\\\infin\\0\end{pmatrix}\\
-  &=\infin
-\end{aligned}$$
+  &=\infty
+  \end{aligned}
+$$
