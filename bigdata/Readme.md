@@ -138,12 +138,12 @@ $$cost=\Big\{^{-\log(H(x))  y=1}_{-\log(1-H(x))  y=0}$$
      - $y=1, H(x)=1$일 때
        - cost => $-\log(H(x))=-\log(1)=0$
      - $y=1, H(x)=0$일 때
-       - cost => $-\log(H(x))=-\log(0)=\infin$
+       - cost => $-\log(H(x))=-\log(0)=\\infty$
    - $cost=-\log(1-H(x))$
      - $y=0, H(x)=0$일 때
        - cost => $-\log(1-H(x))=-\log(1)=0$
      - $y=0, H(x)=1$일 때
-       - cost => $-\log(1-H(x))=-\log(0)=\infin$
+       - cost => $-\log(1-H(x))=-\log(0)=\\infty$
  - Binary cross entropy
 $$C(H(x), y)=-y\log(H(x))-(1-y)\log(1-H(x))$$
    - $y=0$
@@ -204,7 +204,7 @@ g(x)^\prime&=2x^2-1=2x^1=2x
  - $h=Wx+b$일 때 Sigmoid 미분
  - $Sigmoid=\frac{1}{1+e^{-(Wx+b)}}=\frac{1}{1+e^{-h}}$
    - $g(h)=1+e^{-h}$
-   - $g(h)^\prime=(1+e^{-h})^\prime=(e^{-h})^\prime=e^{-h}(-h)^\prime=-e^{-h}$
+   - $g(h)^\prime=(1+e^{-h})^\prime=(e^{-h})^\prime=e^{-h}(-h)^\prime=-e^{-h}$  
  $$ \begin{aligned}
  (Sigmoid)^\prime&=\bigg\{\frac{1}{1+e^{-h}}\bigg\}^\prime\\
  &=\bigg\{\frac{1}{g(h)}\bigg\}^\prime\\
@@ -322,7 +322,7 @@ $$
   &=\begin{bmatrix}0\\1\\0\end{bmatrix}x - log\begin{pmatrix}1\\0\\0\end{pmatrix}\\
   &=\begin{bmatrix}0\\1\\0\end{bmatrix}-\begin{bmatrix}0\\-\infty\\-\infty\end{bmatrix}\\
   &=\begin{bmatrix}0\\1\\0\end{bmatrix}*\begin{pmatrix}0\\\infty\\\infty\end{pmatrix}\\
-  &=\begin{pmatrix}0\\\infin\\0\end{pmatrix}\\
+  &=\begin{pmatrix}0\\\\infty\\0\end{pmatrix}\\
   &=\infty
   \end{aligned}
 $$
@@ -400,4 +400,15 @@ $$
      > 여기서 100개씩 나눈 것으 batch_size라고한다.  
    - 550번 전체 이미지 1번 학습 -> 1epoch라고 한다.
      > 550번 진행 total_batch라고한다.  
+
+
+# 자연어처리(Natural Language Processing)
+ - 사람의 언어 현상을 컴퓨터와 같은 기계를 사용해 다루는 작업을 의미한다.
+ - 자연어 처리의 목표
+   - 컴퓨터가 사람의 언어를 이해하고, 여러가지 문제를 해결할 수 있도록 한다.
+ - Deep-learning
+   - 선형회귀, CNN
+   > 데이터의 입력순서가 달라도 같은 입력값이면 결과는 동일하다.  
    - 
+
+## RNN(Recurrent Natural Network)
