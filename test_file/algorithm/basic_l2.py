@@ -101,18 +101,60 @@
 # 1. 모두 나누어 떨어진다 -> 정렬해서 넣는다.
 # 2. 한 개는 있다. -> 정렬해서 넣는다.
 # 3. 하나도 없다. -> -1를 반환한다.
-def solution(arr, divisor) :
-	result = []
+# def solution(arr, divisor) :
+# 	result = []
 
-	for val in arr :
-		if val % divisor == 0 :
-			result.append(val)
-			result.sort()
+# 	for val in arr :
+# 		if val % divisor == 0 :
+# 			result.append(val)
+# 			result.sort()
 		# elif arr in (val % divisor != 0) :
-		# 	return result.append(-1)
+		# 	return [-1]
 
-	return result
+	# return result
 	# return [val for val in arr if val % divisor == 0]
 
-arr = [10, 9, 7, 5]
-print(solution(arr, int(input())))
+# arr = [10, 9, 7, 5]
+# print(solution(arr, int(input())))
+
+# 23. 모의고사
+
+# 들어오는 데이터는 배열임
+# 가장 높은 점수를 받은 사람만 반환
+# 생성단계
+# 1번놈 -> 1, 2, 3, 4, 5, 1, 2, 3, 4, 5 ... -> range(1, 6)를 len(answer)만큼 반복
+# 2번놈 -> 2, 1, 2, 3, 2, 4, 2, 5 ... -> 2를 넣고 그 다음 [1, 3, 4, 5]를 len(answer)만큼 반복
+# 3번놈 -> 3, 3, 1, 1, 2, 2, 4, 4, 5, 5 ... -> [3, 1, 2, 4, 5]를 각각 2번씩 넣는걸 len(answer)만큼 반복
+# 로직
+# 1. answer 크기 만큼 답안지 생성
+# 2. answer == 시험응시자의 답안지 같은지 비교해서 같은 수를 정답에 넣음
+# 3. 넣은 정답의 갯수가 많은 사람만 반환
+def create(num) :
+	one, two, three = [], [], []
+
+	while len(three) < num :
+		one.append(list(range(1, 6)))
+		# for i in range(1, 6) :
+		# 	one.append(i)
+		for i in [2, 1, 2, 3, 2, 4, 2, 5] :
+			two.append(i)
+		for i in [3, 1, 2, 4, 5] :
+			three.append(i)
+
+	return [list for list in [one, two, three]]
+
+def solution(answer) :
+	winner = []
+	create(len(answer))
+	# one, two, three = [], [], []
+
+	# for i in answer :
+	# 	one.append(i)
+
+	return [range(1, 5) for _ in answer]
+	# return winner
+
+answer = [1, 2, 3, 4, 5]
+answer1 = [1, 3, 2, 4, 2]
+# print(solution(answer1))
+print(create(len(answer)))
