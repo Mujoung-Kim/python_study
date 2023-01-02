@@ -50,8 +50,8 @@
  - hypothesis
  $$H(x)=Wx + b$$
  - W에 대한 기울기
-   - cost<br>
- $$\begin{aligned}
+   - cost  
+ $$\begin{align}
  cost(W, b)&=\frac{1}{2m}\sum_{i=1}^{m}(H(x_{i}) - y_{i})^2 \\
  &=\frac{1}{2m}(H(x) - y)^2 \\
  &=\frac{1}{2m}(H(x)^2-2H(x)y+y^2) \\
@@ -63,21 +63,21 @@
  &=\frac{1}{2m}2(Wx+b-y)x \\
  &=\frac{1}{m}(Wx+b-y)x \\
  &=\frac{1}{m}(H(x)-y)x \\
- \end{aligned}$$
+ \end{align}$$
  > cost가 감소하는 w가 알고싶다. -> cost를 w에 대해서 미분 <br>
  > 1. w가 없으면 삭제 <br>
  > 2. w가 있으면 미분 $W^2-> 2W^{2-1}$<br>
  > 3. 기울기 공식 : $W-\frac{1}{m}(H(x)-y)x$<br>
  - b에 대한 기울기
    - cost
-$$\begin{aligned}
+$$\begin{align}
 cost(W,b)&=\frac{1}{2m}((W^2x^2+2Wxb+b^2)-2Wxy-2by-y^2) \\
 &=\frac{1}{2m}(2Wxb+b^2-2by)\\
 &=\frac{1}{2m}(2Wx+2b-2y)\\
 &=\frac{1}{2m}2(Wx+b-y)\\
 &=\frac{1}{m}(Wx+b-y)\\
 &=\frac{1}{m}(H(x)-y)\\
-\end{aligned}
+\end{align}
 $$
  > cost가 감소하는 b가 알고싶다. -> cost를 b에 대하여 미분 <br>
  > 1. $b^2 -> 2b^{2-1}=2b^1=2b$ <br>
@@ -192,10 +192,10 @@ $$C(H(x), y)=-y\log(H(x))-(1-y)\log(1-H(x))$$
  - $\frac{1}{g(x)}$을 미분 $\bigg\{\frac{1}{g(x)}\bigg\}^\prime$
  $$ \bigg\{\frac{1}{g(x)}\bigg\}^\prime=-\frac{g(x)^\prime}{g(x)^2} $$
  - $\bigg\{\frac{1}{x^2}\bigg\}^\prime$
- $$ \begin{aligned}
+ $$ \begin{align}
 g(x)&=x^2\\
 g(x)^\prime&=2x^2-1=2x^1=2x 
- \end{aligned}$$ 
+ \end{align}$$ 
 <br>
 
 ## 자연상수 e
@@ -205,7 +205,7 @@ g(x)^\prime&=2x^2-1=2x^1=2x
  - $Sigmoid=\frac{1}{1+e^{-(Wx+b)}}=\frac{1}{1+e^{-h}}$
    - $g(h)=1+e^{-h}$
    - $g(h)^\prime=(1+e^{-h})^\prime=(e^{-h})^\prime=e^{-h}(-h)^\prime=-e^{-h}$  
- $$ \begin{aligned}
+ $$ \begin{align}
  (Sigmoid)^\prime&=\bigg\{\frac{1}{1+e^{-h}}\bigg\}^\prime\\
  &=\bigg\{\frac{1}{g(h)}\bigg\}^\prime\\
  &=-\frac{g(h)^\prime}{g(h)^2}\\
@@ -217,7 +217,7 @@ g(x)^\prime&=2x^2-1=2x^1=2x
  &=\frac{1}{(1+e^{-h})}*\bigg\{\frac{(1+e^{-h})}{(1+e^{-h})}*\frac{-1}{(1+e^{-h})}\bigg\}\\
  &=\frac{1}{(1+e^{-h})}*\bigg\{1-\frac{1}{(1+e^{-h})}\bigg\}\\
  &=Sigmoid(h)(1-Sigmoid(h))
- \end{aligned} $$
+ \end{align} $$
  - $Sigmoid(h)=0$일 때
    - $Sigmoid(h)^\prime=0-(1-0)=0$
  - $Sigmoid(h)=1$일 때
@@ -257,44 +257,44 @@ g(x)^\prime&=2x^2-1=2x^1=2x
    > cost == E(rror)라고도 한다.
    - $W_{10}^1$의 기울기
      - E를 $W_{10}^1$로 미분 $=\frac{\delta{E}}{\delta{W_{10}^1}}$
- $$\begin{aligned}
+ $$\begin{align}
  &=\frac{\delta{E}}{\delta{W_{10}^1}}\\
  &=\frac{\delta{E}\delta{a_{20}}\delta{Z_{20}}}{\delta{a_{20}}\delta{Z_{20}}\delta{W_{10}}}\\
  &=\frac{\delta{E}}{\delta{a_{20}}}*\frac{\delta{a_{20}}}{\delta{Z_{20}}}*\frac{\delta{Z_{20}}}{\delta{W_{10}^1}}
- \end{aligned}$$
+ \end{align}$$
  > chain rule : 큰 미분을 쪼개서 작은 단위로만들어 진행하는 미분법
    - $E=\frac{1}{2}(t_1-a_{20})^2$
    - $E^\prime=a_{20}^1=1a_{20}^{1-1}=1a_{20}^0=1*1=1$
    - $a_{20}^2=2*a_{20}^{2-1}=2*a_{20}^1=2a_{20}$
-$$\begin{aligned}
+$$\begin{align}
 \frac{\delta{E}}{\delta{a_{20}}}&=\frac{\delta{\frac{1}{2}(t_1^2-2t_1a_{20}+a_{20}^2)}}{\delta{a_{20}}}\\
 &={\frac{1}{2}(-2t_1+2a_{20})}\\
 &={(-t_1+a_{20})}\\
 &=(a_{20}-t_1)
- \end{aligned}$$
+ \end{align}$$
    - $(Sigmoid)^\prime=Sigmoid(1-Sigmoid)$
- $$\begin{aligned}
+ $$\begin{align}
   \frac{\delta{a_{20}}}{\delta{Z_{20}}}&=\frac{\delta{Sigmoid(Z_{20})}}{\delta{Z_{20}}}\\
   &=Sigmoid(Z_{20})(1-Sigmoid(Z_{20}))\\
   &=a_{20}(1-a_{20})
- \end{aligned}$$
+ \end{align}$$
    - $Z_{20}$을 $W_{10}^1$로 미분
    - $a_{10}W_{10}^1+a_{11}W_{20}^1$
- $$\begin{aligned}
+ $$\begin{align}
   \frac{\delta{Z_{20}}}{\delta{W_{10}^1}}&=\frac{\delta{(a_{10}W_{10}^1+a_{10}W_{20}^1)}}{\delta{W_{10}^1}}\\
   &=(a_{10}*1)\\
   &=a_{10}
- \end{aligned}$$
+ \end{align}$$
  - 전체 에러 $E_1$에 $W_{10}^0$가 기여한 정도
  - $\frac{\delta{Z_{20}}}{\delta{a_{10}}}=\frac{\delta{(a_{10}W_{10^1}+a_{11}W_{20}^1)}}{\delta{a_{10}}}=1*W_{10}^1=W_{10}$
  - $\frac{\delta{Sigmoid(Z_{10})}}{\delta{Z_{10}}}=Sigmoid(Z_{10})(1-sigmoid(Z_{10}))=a_{10}(1-a_{10})$
  - $\frac{\delta{Z_{10}}}{\delta{W_{10}^0}}=\frac{\delta{(x_1W_{10}^0+x_2W_{20}^0)}}{\delta{W_{10}^0}}=x_1*1=x_1$
- $$\begin{aligned}
+ $$\begin{align}
   \frac{\delta{E}}{\delta{W_{10}^0}}
   &=\frac{\delta{Z_{10}}}{\delta{W_{10}^0}}*\frac{\delta{a_{10}}}{\delta{Z_{10}}}*\frac{\delta{Z_{20}}}{\delta{a_{10}}}*\frac{\delta{a_{20}}}{\delta{Z_{20}}}*\frac{\delta{E}}{\delta{a_{20}}}\\
   &=x_1*a_{10}(1-a_{10})*W_{10}*0.0099*(-0.01)\\
   &=0*0.047*5*0.0099*(-0.01)
- \end{aligned}$$
+ \end{align}$$
 
  ## 다중 분류 함수(Softmax activate function)
   - 출력값의 합이 1이 되도록하여 퍼센트를 계산
@@ -306,25 +306,25 @@ $$\begin{aligned}
  - 정확하게 예측했을 경우 $cost=0$, 틀렸을 경우 $cost=\infty$
  - $L=\begin{bmatrix}0\\1\\0\end{bmatrix}$, $y=\begin{bmatrix}0\\1\\0\end{bmatrix}$일 때
 $$
-  \begin{aligned}cost
+  \begin{align}cost
   &=L_i*-\log(y_i)\\
   &=\begin{bmatrix}0\\1\\0\end{bmatrix}x - log\begin{pmatrix}0\\1\\0\end{pmatrix}\\
   &=\begin{bmatrix}0\\1\\0\end{bmatrix}-\begin{bmatrix}-\infty\\0\\-\infty\end{bmatrix}\\
   &=\begin{bmatrix}0\\1\\0\end{bmatrix}*\begin{pmatrix}\infty\\0\\\infty\end{pmatrix}\\
   &=\begin{pmatrix}0\\0\\0\end{pmatrix}\\
   &=0
-  \end{aligned}
+  \end{align}
 $$
  - $L=\begin{bmatrix}0\\1\\0\end{bmatrix}$, $y=\begin{bmatrix}1\\0\\0\end{bmatrix}$일 때
 $$
-  \begin{aligned}cost
+  \begin{align}cost
   &=L_i*-\log(y_i)\\
   &=\begin{bmatrix}0\\1\\0\end{bmatrix}x - log\begin{pmatrix}1\\0\\0\end{pmatrix}\\
   &=\begin{bmatrix}0\\1\\0\end{bmatrix}-\begin{bmatrix}0\\-\infty\\-\infty\end{bmatrix}\\
   &=\begin{bmatrix}0\\1\\0\end{bmatrix}*\begin{pmatrix}0\\\infty\\\infty\end{pmatrix}\\
   &=\begin{pmatrix}0\\\\infty\\0\end{pmatrix}\\
   &=\infty
-  \end{aligned}
+  \end{align}
 $$
 
 <br>
@@ -408,7 +408,14 @@ $$
    - 컴퓨터가 사람의 언어를 이해하고, 여러가지 문제를 해결할 수 있도록 한다.
  - Deep-learning
    - 선형회귀, CNN
-   > 데이터의 입력순서가 달라도 같은 입력값이면 결과는 동일하다.  
-   - 
+   > 데이터의 입력순서가 달라도 같은 입력값이면 결과는 동일하다.  <br>
 
 ## RNN(Recurrent Natural Network)
+ - 처리방식
+   1. 다수 입력 단일 출력
+     - 문장을 읽고, 뜻을 파악할 때 활용
+   2. 단일 입력 다수 출력
+     - 사진의 캡션을 만들 때 활용
+   3. 다수 입력 다수 출력
+     - 문장을 번역할 때 활용
+ - 
