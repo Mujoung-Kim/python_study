@@ -51,19 +51,7 @@
  $$H(x)=Wx + b$$
  - W에 대한 기울기
    - cost  
- $$\begin{align}
- cost(W, b)&=\frac{1}{2m}\sum_{i=1}^{m}(H(x_{i}) - y_{i})^2 \\
- &=\frac{1}{2m}(H(x) - y)^2 \\
- &=\frac{1}{2m}(H(x)^2-2H(x)y+y^2) \\
- &=\frac{1}{2m}((Wx+b)^2-2(Wx+b)y+y^2) \\
- &=\frac{1}{2m}((W^2x^2+2Wxb+b^2)-2Wxy-by+y^2) \\
- &=\frac{1}{2m}(W^2x^2+2Wxb-2Wxy) \\
- &=\frac{1}{2m}(2Wx^2+2xb-2xy) \\
- &=\frac{1}{2m}2(Wx^2+xb-xy) \\
- &=\frac{1}{2m}2(Wx+b-y)x \\
- &=\frac{1}{m}(Wx+b-y)x \\
- &=\frac{1}{m}(H(x)-y)x \\
- \end{align}$$
+ $$\begin{align}cost(W, b)&=\frac{1}{2m}\sum_{i=1}^{m}(H(x_{i}) - y_{i})^2 \\&=\frac{1}{2m}(H(x) - y)^2 \\&=\frac{1}{2m}(H(x)^2-2H(x)y+y^2) \\&=\frac{1}{2m}((Wx+b)^2-2(Wx+b)y+y^2) \\&=\frac{1}{2m}((W^2x^2+2Wxb+b^2)-2Wxy-by+y^2) \\&=\frac{1}{2m}(W^2x^2+2Wxb-2Wxy) \\&=\frac{1}{2m}(2Wx^2+2xb-2xy) \\&=\frac{1}{2m}2(Wx^2+xb-xy) \\&=\frac{1}{2m}2(Wx+b-y)x \\&=\frac{1}{m}(Wx+b-y)x \\&=\frac{1}{m}(H(x)-y)x \\\end{align}$$
  > cost가 감소하는 w가 알고싶다. -> cost를 w에 대해서 미분 <br>
  > 1. w가 없으면 삭제 <br>
  > 2. w가 있으면 미분 $W^2-> 2W^{2-1}$<br>
