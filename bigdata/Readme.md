@@ -425,4 +425,14 @@ $$
    > 앞의 값을 온전히 반영 Whh = 1  
    > 앞의 값을 50%만 반영 Whh = 0.5  
    - $h1 + h0 * Whh$
+ - Tensorflow 2.x에선 RNN입력은 3차원, 이미지의 경우 4차원이다.  
+<br>
+
+### Tokenizer()
+ - 문장에서 단어들을 숫자로 바꿀 object
+ - `tokenizer.fit_on_texts(token_text)` : 문장이 저장된 리스트
+ - `tokenizer.texts_to_sequence(token_text)` : 문장의 단어들을 숫자로 바꿔서 반환한다.
+   > 빈도 + 먼저 입력된 순서별로 번호를 매긴다.  
+   > ex). Traffic ticket fine, Traffic is fine -> { Traffic : 1, fine : 2, ticket : 3, is : 4 }  
+   > 단어들이 많아질 경우 값이 커지기 때문에 one_hot_encoding 처리를 해서 결과를 도출해야 학습이 빠르다.  
  - 
